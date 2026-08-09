@@ -17,7 +17,7 @@
             <li><a href="about.html" class="active">Why Tech?</a></li>
             
             <li class="dropdown">
-                <a href="index.html#tracks" class="dropdown-btn">Computer Basics</a>
+                <a href="index.html#tracks" class="dropdown-btn" onclick="selectTrack('computer-basics')">Computer Basics</a>
                 <ul class="dropdown-menu">
                     <li><a href="games/turbo-type/index.html" target="_blank">🏎️ Turbo Type</a></li>
                     <li><a href="games/keyboard-ninja/index.html" target="_blank">🥷 Keyboard Ninja</a></li>
@@ -27,7 +27,7 @@
             </li>
 
             <li class="dropdown">
-                <a href="index.html#tracks" class="dropdown-btn">Internet Safety</a>
+                <a href="index.html#tracks" class="dropdown-btn" onclick="selectTrack('internet-safety')">Internet Safety</a>
                 <ul class="dropdown-menu">
                     <li><a href="games/cyber-guardian/index.html" target="_blank">🛡️ Cyber Guardian</a></li>
                     <li><a href="games/password-protector/index.html" target="_blank">🔍 Password Protector</a></li>
@@ -47,7 +47,13 @@
                 </ul>
             </li>
 
-            <li><a href="index.html#resources">Resources</a></li>
+            <li class="dropdown">
+                <a href="index.html#tracks" class="dropdown-btn" onclick="selectTrack('exam-prep')">Resources</a>
+                <ul class="dropdown-menu">
+                    <li><a href="cbt/waec/index.html" target="_blank">🎓 WAEC Practice</a></li>
+                    <li><a href="cbt/jamb/index.html" target="_blank">📝 JAMB Practice</a></li>
+                </ul>
+            </li>
         </ul>
         <a href="index.html#tracks" class="btn-primary">Start Learning</a>
     </nav>
