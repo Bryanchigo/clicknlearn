@@ -1,0 +1,355 @@
+/* --- VARIABLES & PALETTE --- */
+:root {
+    --laser-cyan: #00f0ff;
+    --vault-green: #00ff88;
+    --warn-yellow: #ffca28;
+    --error-red: #ff4757;
+    --bg-dark: #050811;
+    --console-bg: #0d1322;
+    --card-bg: #172033;
+    --border-color: #2e3d59;
+    --text-muted: #8e9bb0;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-dark);
+    background-image: radial-gradient(circle at 50% 20%, #172642 0%, var(--bg-dark) 80%);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+/* --- GAME CONTAINER --- */
+#game-container {
+    width: 950px;
+    height: 680px;
+    background: var(--console-bg);
+    border-radius: 24px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(0, 240, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid var(--border-color);
+}
+
+/* --- HUD --- */
+#hud {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1.2rem;
+    background: rgba(9, 13, 23, 0.95);
+    border-bottom: 2px solid var(--border-color);
+    z-index: 10;
+}
+
+.stat-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+#score-val, #level-val {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--laser-cyan);
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+}
+
+.vault-bar {
+    width: 200px;
+    height: 16px;
+    background: #1a253b;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid #2e3d59;
+}
+
+#vault-fill {
+    width: 100%;
+    height: 100%;
+    background: var(--vault-green);
+    box-shadow: 0 0 12px var(--vault-green);
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+/* --- CONSOLE PLAY AREA --- */
+#console-area {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* Radar Display */
+#radar-screen {
+    height: 320px;
+    background-color: #080d1a;
+    background-image: 
+        radial-gradient(circle, rgba(0, 240, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(rgba(0, 240, 255, 0.04) 1px, transparent 1px);
+    background-size: 30px 30px;
+    border-bottom: 2px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.vault-core {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 255, 136, 0.15);
+    border: 2px solid var(--vault-green);
+    color: var(--vault-green);
+    padding: 0.6rem 2rem;
+    border-radius: 30px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+}
+
+.laser-cannon {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2.5rem;
+    z-index: 5;
+    transition: transform 0.1s ease;
+}
+
+/* Moving Threat Bot */
+.threat-bot {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 71, 87, 0.2);
+    border: 2px solid var(--error-red);
+    padding: 0.8rem 1.4rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 0 15px rgba(255, 71, 87, 0.4);
+    transition: top 0.1s linear;
+}
+
+.bot-icon { font-size: 1.8rem; }
+.bot-pwd {
+    font-family: 'Consolas', monospace;
+    font-weight: 800;
+    color: #fff;
+    font-size: 1.1rem;
+    background: #000;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+}
+
+/* Laser Beam Animation */
+.laser-beam {
+    position: absolute;
+    width: 6px;
+    background: var(--laser-cyan);
+    box-shadow: 0 0 15px var(--laser-cyan), 0 0 30px var(--laser-cyan);
+    z-index: 4;
+    pointer-events: none;
+}
+
+/* WORKBENCH & INPUT */
+#workbench {
+    flex-grow: 1;
+    padding: 1.5rem 2.5rem;
+    background: var(--card-bg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.challenge-box {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.threat-tag {
+    align-self: flex-start;
+    background: rgba(255, 202, 40, 0.15);
+    color: var(--warn-yellow);
+    border: 1px solid var(--warn-yellow);
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    letter-spacing: 1px;
+}
+
+#target-prompt {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #f8fafc;
+}
+
+.input-wrapper {
+    display: flex;
+    gap: 1rem;
+}
+
+#password-input {
+    flex-grow: 1;
+    background: #0b101d;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 0.9rem 1.2rem;
+    font-family: 'Consolas', monospace;
+    font-size: 1.2rem;
+    color: var(--laser-cyan);
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+#password-input:focus {
+    border-color: var(--laser-cyan);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+}
+
+#zap-btn {
+    background: linear-gradient(135deg, var(--laser-cyan), #0088ff);
+    color: #050811;
+    border: none;
+    padding: 0 2rem;
+    border-radius: 12px;
+    font-weight: 900;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+    transition: all 0.2s;
+}
+
+#zap-btn:hover { transform: scale(1.03); }
+
+/* Checklist */
+.checklist {
+    display: flex;
+    gap: 1.2rem;
+    margin-top: 4px;
+}
+
+.check-item {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    background: #0d1322;
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.check-item.valid {
+    color: var(--vault-green);
+    border-color: var(--vault-green);
+    background: rgba(0, 255, 136, 0.1);
+}
+
+/* --- SCREENS --- */
+.screen {
+    position: absolute;
+    inset: 0;
+    background: rgba(9, 13, 23, 0.95);
+    backdrop-filter: blur(12px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    text-align: center;
+    padding: 2rem;
+}
+
+.hidden { display: none !important; }
+
+.title {
+    font-size: 3.2rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #fff 0%, var(--laser-cyan) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+}
+
+.screen p { color: var(--text-muted); font-size: 1.1rem; max-width: 550px; margin-bottom: 2rem; }
+
+.mode-selector { display: flex; gap: 1rem; margin-bottom: 2.5rem; }
+.mode-selector input[type="radio"] { display: none; }
+.mode-selector label {
+    cursor: pointer;
+    background: #172033;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    border: 2px solid var(--border-color);
+    font-weight: 600;
+    color: #8e9bb0;
+    transition: all 0.2s;
+}
+
+.mode-selector label:has(input:checked) {
+    border-color: var(--laser-cyan);
+    background: rgba(0, 240, 255, 0.1);
+    color: var(--laser-cyan);
+}
+
+.final-stats {
+    display: flex;
+    gap: 3rem;
+    margin-bottom: 2.5rem;
+    background: #172033;
+    padding: 1.5rem 3rem;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+}
+
+button {
+    background: linear-gradient(135deg, var(--laser-cyan), #0088ff);
+    color: #050811;
+    border: none;
+    padding: 1rem 3rem;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(0, 240, 255, 0.3);
+    transition: all 0.2s;
+}
+
+button:hover { transform: scale(1.05); }
+
+.back-link {
+    margin-top: 1.5rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+.back-link:hover { color: white; }

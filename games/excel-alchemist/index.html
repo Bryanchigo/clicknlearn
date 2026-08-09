@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel Alchemist | MS Excel Simulator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="excel-app">
+        <div class="title-bar">
+            <div class="quick-access">
+                <img src="https://cdn-icons-png.flaticon.com/128/732/732220.png" alt="Excel Icon"
+                    class="flaticon-app-icon">
+                <i class="fa-solid fa-floppy-disk qa-icon" title="Save Workbook" onclick="saveWorkbook()"></i>
+                <i class="fa-solid fa-rotate-left qa-icon" title="Undo" onclick="undoAction()"></i>
+                <i class="fa-solid fa-rotate-right qa-icon" title="Redo" onclick="redoAction()"></i>
+                <i class="fa-solid fa-file-csv qa-icon" title="Export CSV" onclick="exportCSV()"></i>
+                <span class="app-title">Excel Alchemist</span>
+            </div>
+
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="quickSearchInput" placeholder="Search formulas or cells..." onkeyup="searchCells(this.value)">
+                <span class="doc-label" id="doc-title">Workbook1.xlsx</span>
+            </div>
+
+            <div class="stats-bar">
+                <span id="level-badge"><i class="fa-solid fa-layer-group"></i> Level 1 of 12</span>
+                <span id="score-badge"><i class="fa-solid fa-star"></i> XP: 0</span>
+            </div>
+        </div>
+
+        <div class="menu-tabs">
+            <span class="tab-item" onclick="switchTab('file', this)">File</span>
+            <span class="tab-item active-tab" onclick="switchTab('home', this)">Home</span>
+            <span class="tab-item" onclick="switchTab('formulas', this)">Formulas</span>
+        </div>
+
+        <div class="task-banner">
+            <div class="task-content">
+                <img src="https://cdn-icons-png.flaticon.com/512/1043/1043444.png" alt="Task Icon" class="flaticon-banner-icon">
+                <div id="task-instruction">Loading level instructions...</div>
+            </div>
+            <button class="hint-btn" onclick="showHint()">
+                <i class="fa-regular fa-lightbulb"></i> Need a Hint?
+            </button>
+        </div>
+
+        <div class="ribbon-container">
+
+            <div class="tab-ribbon active" id="ribbon-home">
+                <div class="ribbon-group">
+                    <div class="button-row">
+                        <button class="ribbon-btn large-btn" onclick="copyCell()" title="Copy Cell"><i class="fa-regular fa-copy"></i></button>
+                        <button class="ribbon-btn" onclick="pasteCell()" title="Paste Cell"><i class="fa-regular fa-clipboard"></i></button>
+                        <button class="ribbon-btn" onclick="clearSelectedCell()" title="Clear Cell"><i class="fa-solid fa-eraser"></i></button>
+                    </div>
+                    <div class="group-label">Clipboard</div>
+                </div>
+
+                <div class="ribbon-divider"></div>
+
+                <div class="ribbon-group">
+                    <div class="button-row">
+                        <select class="ribbon-select" onchange="applyCellStyle('fontFamily', this.value)">
+                            <option value="Segoe UI">Segoe UI</option>
+                            <option value="Calibri">Calibri</option>
+                            <option value="Arial">Arial</option>
+                            <option value="Consolas">Consolas</option>
+                        </select>
+                        <select class="ribbon-select" onchange="applyCellStyle('fontSize', this.value + 'pt')">
+                            <option value="11">11pt</option>
+                            <option value="12">12pt</option>
+                            <option value="14">14pt</option>
+                            <option value="16">16pt</option>
+                        </select>
+                    </div>
+                    <div class="button-row" style="margin-top: 4px;">
+                        <button class="ribbon-btn" onclick="toggleCellFormat('bold')" title="Bold"><i class="fa-solid fa-bold"></i></button>
+                        <button class="ribbon-btn" onclick="toggleCellFormat('italic')" title="Italic"><i class="fa-solid fa-italic"></i></button>
+                        <button class="ribbon-btn" onclick="toggleCellFormat('underline')" title="Underline"><i class="fa-solid fa-underline"></i></button>
+
+                        <div class="picker-wrapper" title="Fill Color (Background)">
+                            <i class="fa-solid fa-fill-drip"></i>
+                            <input type="color" class="color-picker" value="#ffff00" oninput="applyCellStyle('backgroundColor', this.value)">
+                        </div>
+
+                        <div class="picker-wrapper" title="Font Color">
+                            <i class="fa-solid fa-font"></i>
+                            <input type="color" class="color-picker" value="#000000" oninput="applyCellStyle('color', this.value)">
+                        </div>
+                    </div>
+                    <div class="group-label">Font</div>
+                </div>
+
+                <div class="ribbon-divider"></div>
+
+                <div class="ribbon-group">
+                    <div class="button-row">
+                        <button class="ribbon-btn" onclick="applyCellStyle('textAlign', 'left')" title="Align Left"><i class="fa-solid fa-align-left"></i></button>
+                        <button class="ribbon-btn" onclick="applyCellStyle('textAlign', 'center')" title="Center"><i class="fa-solid fa-align-center"></i></button>
+                        <button class="ribbon-btn" onclick="applyCellStyle('textAlign', 'right')" title="Align Right"><i class="fa-solid fa-align-right"></i></button>
+                    </div>
+                    <div class="group-label">Alignment</div>
+                </div>
+
+                <div class="ribbon-divider"></div>
+
+                <div class="ribbon-group">
+                    <div class="button-row">
+                        <button class="ribbon-btn" onclick="applyNumberFormat('currency')" title="Currency ($)"><i class="fa-solid fa-dollar-sign"></i></button>
+                        <button class="ribbon-btn" onclick="applyNumberFormat('percent')" title="Percent (%)"><i class="fa-solid fa-percent"></i></button>
+                        <button class="ribbon-btn" onclick="applyNumberFormat('comma')" title="Comma Style (,)" style="font-weight: bold;">,</button>
+                    </div>
+                    <div class="group-label">Number</div>
+                </div>
+            </div>
+
+            <div class="tab-ribbon" id="ribbon-formulas">
+                <div class="ribbon-group">
+                    <div class="button-row">
+                        <button class="ribbon-btn large-btn" onclick="insertFormula('SUM')"><i class="fa-solid fa-calculator"></i> Autosum</button>
+                        <button class="ribbon-btn" onclick="insertFormula('AVERAGE')">AVERAGE</button>
+                        <button class="ribbon-btn" onclick="insertFormula('MAX')">MAX</button>
+                        <button class="ribbon-btn" onclick="insertFormula('MIN')">MIN</button>
+                        <button class="ribbon-btn" onclick="insertFormula('COUNT')">COUNT</button>
+                    </div>
+                    <div class="group-label">Function Library</div>
+                </div>
+            </div>
+
+            <div class="tab-ribbon" id="ribbon-view">
+                <div class="ribbon-group">
+                    <div class="button-row">
+                        <label class="ribbon-checkbox">
+                            <input type="checkbox" id="toggleGridlinesCheck" checked onchange="toggleGridlines(this.checked)"> Gridlines
+                        </label>
+                        <label class="ribbon-checkbox">
+                            <input type="checkbox" id="toggleHeadersCheck" checked onchange="toggleHeaders(this.checked)"> Headings
+                        </label>
+                    </div>
+                    <div class="group-label">Show</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="formula-bar-container">
+            <div id="nameBox" class="name-box">A1</div>
+            <div class="fx-icon"><i class="fa-solid fa-square-root-variable"></i> fx</div>
+            <input type="text" id="formulaInput" class="formula-input" placeholder="Enter text, numbers, or formula (=SUM(A1:A5))" oninput="onFormulaInput(this.value)" onkeydown="onFormulaKeyDown(event)">
+        </div>
+
+        <div class="spreadsheet-container" id="spreadsheetContainer">
+            <table class="excel-table" id="excelTable">
+                </table>
+        </div>
+
+        <div class="sheet-tabs-bar" id="sheetTabsContainer">
+            <div class="sheet-tab active-sheet" onclick="switchSheet(this)">
+                <i class="fa-solid fa-table"></i> Sheet1
+            </div>
+            <div class="sheet-tab add-tab-btn" onclick="addNewSheet()">
+                <i class="fa-solid fa-plus"></i>
+            </div>
+        </div>
+        
+        <div class="status-bar">
+            <div class="status-left">
+                <span id="readyStatus">READY</span>
+                <span id="sumDisplay">SUM: 0</span>
+                <span id="avgDisplay">AVERAGE: 0</span>
+                <span id="countDisplay">COUNT: 0</span>
+            </div>
+            <div class="status-right">
+                <div class="zoom-container">
+                    <i class="fa-solid fa-minus zoom-btn" onclick="adjustZoom(-10)"></i>
+                    <input type="range" id="zoomRange" min="70" max="130" value="100" class="zoom-slider" oninput="changeZoom(this.value)">
+                    <i class="fa-solid fa-plus zoom-btn" onclick="adjustZoom(10)"></i>
+                    <span id="zoomVal">100%</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-controls">
+            <div id="status-message" class="status-message"></div>
+            <button class="submit-btn" onclick="checkAnswer()">Check Alchemy Formula <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

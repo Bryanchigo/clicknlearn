@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerPoint Pioneer | MS PowerPoint Simulator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="ppt-app">
+        <div class="title-bar">
+            <div class="quick-access">
+                <img src="https://cdn-icons-png.flaticon.com/128/732/732224.png" alt="PowerPoint Icon"
+                    class="flaticon-app-icon">
+                <i class="fa-solid fa-floppy-disk qa-icon" title="Save Presentation" onclick="saveDocument()"></i>
+                <i class="fa-solid fa-rotate-left qa-icon" title="Undo (Ctrl+Z)" onclick="formatDoc('undo')"></i>
+                <i class="fa-solid fa-rotate-right qa-icon" title="Redo (Ctrl+Y)" onclick="formatDoc('redo')"></i>
+                <i class="fa-solid fa-play qa-icon" title="Start Slide Show" onclick="startPresentation()"></i>
+                <span id="app-title" class="app-title">Presentation1 - PowerPoint</span>
+            </div>
+
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Search in presentation..." onkeyup="searchDocument(this.value)">
+            </div>
+
+            <div class="doc-info">
+                <span id="doc-title" class="doc-label">Deck.pptx</span>
+                <span id="score-badge" class="stats-badge"><i class="fa-solid fa-star"></i> XP: 0</span>
+            </div>
+        </div>
+
+        <div class="menu-tabs">
+            <div class="tab-item active-tab" onclick="switchTab(this, 'homeTab')">Home</div>
+            <div class="tab-item" onclick="switchTab(this, 'insertTab')">Insert</div>
+            <div class="tab-item" style="opacity:0.5; cursor: not-allowed;">Draw</div>
+            <div class="tab-item" style="opacity: 0.5; cursor: not-allowed;">Design</div>
+            <div class="tab-item" onclick="switchTab(this, 'transitionsTab')">Transitions</div>
+            <div class="tab-item" onclick="switchTab(this, 'animationsTab')">Animations</div>
+            <div class="tab-item" onclick="switchTab(this, 'helpTab')">Help</div>
+        </div>
+
+        <div class="task-banner">
+            <div class="task-content">
+                <img src="https://cdn-icons-png.flaticon.com/128/2098/2098402.png" alt="Task Icon"
+                    class="flaticon-banner-icon">
+                <div>
+                    <strong>Task:</strong> <span id="task-instruction">Loading level instructions...</span>
+                </div>
+            </div>
+            <button class="hint-btn" onclick="showHint()"><i class="fa-regular fa-lightbulb"></i> Hint</button>
+        </div>
+
+        <div class="ribbon-container">
+            <div id="homeTab" class="tab-ribbon active">
+                <div class="ribbon-group">
+                    <div class="button-row">
+                        <button class="ribbon-btn large-btn" onmousedown="event.preventDefault()"
+                            onclick="addNewSlide()">
+                            <i class="fa-regular fa-square-plus"></i>
+                            <span>New Slide</span>
+                        </button>
+                    </div>
+                    <span class="group-label">Slides</span>
+                </div>
+
+                <div class="ribbon-divider"></div>
+
+                <div class="ribbon-group">
+                    <div class="button-row">
+                        <select class="ribbon-select" id="fontFamilySelect" onfocus="saveSelection()"
+                            onchange="formatDoc('fontName', this.value)">
+                            <option value="Calibri">Calibri</option>
+                            <option value="Arial">Arial</option>
+                            <option value="Comic Sans MS">Comic Sans MS</option>
+                            <option value="Courier New">Courier New</option>
+                            <option value="Georgia">Georgia</option>
+                            <option value="Impact">Impact</option>
+                            <option value="Times New Roman">Times New Roman</option>
+                        </select>
+                        <select class="ribbon-select" id="fontSizeSelect" onfocus="saveSelection()"
+                            onchange="formatDoc('fontSize', this.value)">
+                            <option value="1">10 pt</option>
+                            <option value="2">12 pt</option>
+                            <option value="3" selected>16 pt</option>
+                            <option value="4">20 pt</option>
+                            <option value="5">24 pt</option>
+                            <option value="6">32 pt</option>
+                            <option value="7">48 pt</option>
+                        </select>
+                    </div>
+
+                    <div class="button-row" style="margin-top: 4px;">
+                        <button class="ribbon-btn" title="Bold" onmousedown="event.preventDefault()"
+                            onclick="formatDoc('bold')"><i class="fa-solid fa-bold"></i></button>
+                        <button class="ribbon-btn" title="Italic" onmousedown="event.preventDefault()"
+                            onclick="formatDoc('italic')"><i class="fa-solid fa-italic"></i></button>
+                        <button class="ribbon-btn" title="Underline" onmousedown="event.preventDefault()"
+                            onclick="formatDoc('underline')"><i class="fa-solid fa-underline"></i></button>
+
+                        <div class="custom-color-picker" id="highlightColorPickerWrapper">
+                            <button class="ribbon-btn color-picker-btn" title="Text Highlight Color"
+                                onmousedown="event.preventDefault()"
+                                onclick="toggleColorMenu('highlightColorMenu', event)">
+                                <span class="color-icon-stack">
+                                    <i class="fa-solid fa-highlighter"></i>
+                                    <span class="color-bar-indicator" id="highlightColorIndicator"
+                                        style="background-color: #ffff00;"></span>
+                                </span>
+                                <i class="fa-solid fa-caret-down drop-caret"></i>
+                            </button>
+                            <div class="color-menu-popup highlight-color-popup" id="highlightColorMenu">
+                                <div class="color-swatch-grid highlight-grid">
+                                    <button class="swatch" style="background-color: #ffff00;"
+                                        onmousedown="event.preventDefault()" onclick="applyHighlightColor('#ffff00')"
+                                        title="Yellow"></button>
+                                    <button class="swatch" style="background-color: #00ff00;"
+                                        onmousedown="event.preventDefault()" onclick="applyHighlightColor('#00ff00')"
+                                        title="Bright Green"></button>
+                                    <button class="swatch" style="background-color: #00ffff;"
+                                        onmousedown="event.preventDefault()" onclick="applyHighlightColor('#00ffff')"
+                                        title="Turquoise"></button>
+                                    <button class="swatch" style="background-color: #ff00ff;"
+                                        onmousedown="event.preventDefault()" onclick="applyHighlightColor('#ff00ff')"
+                                        title="Pink"></button>
+                                    <button class="swatch" style="background-color: #0000ff;"
+                                        onmousedown="event.preventDefault()" onclick="applyHighlightColor('#0000ff')"
+                                        title="Blue"></button>
+                                </div>
+                                <div class="color-menu-row" onmousedown="event.preventDefault()"
+                                    onclick="applyHighlightColor('transparent')">
+                                    <span class="no-color-box"><i class="fa-solid fa-ban"></i></span>
+                                    <span>No Color</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="custom-color-picker" id="fontColorPickerWrapper">
+                            <button class="ribbon-btn color-picker-btn" title="Font Color"
+                                onmousedown="event.preventDefault()" onclick="toggleColorMenu('fontColorMenu', event)">
+                                <span class="color-icon-stack">
+                                    <i class="fa-solid fa-font"></i>
+                                    <span class="color-bar-indicator" id="fontColorIndicator"
+                                        style="background-color: #000000;"></span>
+                                </span>
+                                <i class="fa-solid fa-caret-down drop-caret"></i>
+                            </button>
+                            <div class="color-menu-popup font-color-popup" id="fontColorMenu">
+                                <div class="color-swatch-grid font-theme-grid">
+                                    <button class="swatch" style="background-color: #ffffff; border: 1px solid #ddd;"
+                                        onmousedown="event.preventDefault()"
+                                        onclick="applyFontColor('#ffffff')"></button>
+                                    <button class="swatch" style="background-color: #000000;"
+                                        onmousedown="event.preventDefault()"
+                                        onclick="applyFontColor('#000000')"></button>
+                                    <button class="swatch" style="background-color: #c43e1c;"
+                                        onmousedown="event.preventDefault()"
+                                        onclick="applyFontColor('#c43e1c')"></button>
+                                    <button class="swatch" style="background-color: #4472c4;"
+                                        onmousedown="event.preventDefault()"
+                                        onclick="applyFontColor('#4472c4')"></button>
+                                    <button class="swatch" style="background-color: #ff0000;"
+                                        onmousedown="event.preventDefault()"
+                                        onclick="applyFontColor('#ff0000')"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="group-label">Font</span>
+                </div>
+
+                <div class="ribbon-divider"></div>
+
+                <div class="ribbon-group">
+                    <div class="button-row">
+                        <button class="ribbon-btn" title="Align Left" onmousedown="event.preventDefault()"
+                            onclick="formatDoc('justifyLeft')"><i class="fa-solid fa-align-left"></i></button>
+                        <button class="ribbon-btn" title="Center" onmousedown="event.preventDefault()"
+                            onclick="formatDoc('justifyCenter')"><i class="fa-solid fa-align-center"></i></button>
+                        <button class="ribbon-btn" title="Align Right" onmousedown="event.preventDefault()"
+                            onclick="formatDoc('justifyRight')"><i class="fa-solid fa-align-right"></i></button>
+                    </div>
+                    <div class="button-row" style="margin-top: 4px;">
+                        <button class="ribbon-btn" title="Bullet List" onmousedown="event.preventDefault()"
+                            onclick="formatDoc('insertUnorderedList')"><i class="fa-solid fa-list-ul"></i></button>
+                        <button class="ribbon-btn" title="Numbered List" onmousedown="event.preventDefault()"
+                            onclick="formatDoc('insertOrderedList')"><i class="fa-solid fa-list-ol"></i></button>
+                    </div>
+                    <span class="group-label">Paragraph</span>
+                </div>
+            </div>
+
+            <div id="insertTab" class="tab-ribbon">
+                <div class="ribbon-group">
+                    <div class="button-row">
+                        <button class="ribbon-btn large-btn" onmousedown="event.preventDefault()"
+                            onclick="addNewSlide()">
+                            <i class="fa-regular fa-square-plus"></i><span>New Slide</span>
+                        </button>
+                        <button class="ribbon-btn large-btn" onmousedown="event.preventDefault()"
+                            onclick="insertElement('table')">
+                            <i class="fa-solid fa-table"></i><span>Table</span>
+                        </button>
+                        <button class="ribbon-btn large-btn" onmousedown="event.preventDefault()"
+                            onclick="insertElement('shape')">
+                            <i class="fa-solid fa-shapes"></i><span>Shapes</span>
+                        </button>
+                        <button class="ribbon-btn large-btn" onmousedown="event.preventDefault()"
+                            onclick="insertElement('textbox')">
+                            <i class="fa-regular fa-object-group"></i><span>Text Box</span>
+                        </button>
+                    </div>
+                    <span class="group-label">Insert Elements</span>
+                </div>
+            </div>
+
+            <div id="transitionsTab" class="tab-ribbon">
+                <div class="ribbon-group">
+                    <div class="button-row">
+                        <button class="ribbon-btn large-btn" onmousedown="event.preventDefault()"
+                            onclick="applyTransition('none')">
+                            <i class="fa-solid fa-ban" style="color: #666;"></i><span>None</span>
+                        </button>
+                        <button class="ribbon-btn large-btn" onmousedown="event.preventDefault()"
+                            onclick="applyTransition('fade')">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i><span>Fade</span>
+                        </button>
+                        <button class="ribbon-btn large-btn" onmousedown="event.preventDefault()"
+                            onclick="applyTransition('push')">
+                            <i class="fa-solid fa-angles-up"></i><span>Push</span>
+                        </button>
+                        <button class="ribbon-btn large-btn" onmousedown="event.preventDefault()"
+                            onclick="applyTransition('wipe')">
+                            <i class="fa-solid fa-arrow-right-long"></i><span>Wipe</span>
+                        </button>
+                    </div>
+                    <span class="group-label">Transition to This Slide</span>
+                </div>
+            </div>
+
+            <div id="animationsTab" class="tab-ribbon">
+                <div class="ribbon-group">
+                    <div class="button-row">
+                        <button class="ribbon-btn large-btn" onmousedown="event.preventDefault()"
+                            onclick="applyAnimation('none')">
+                            <i class="fa-solid fa-ban" style="color: #666;"></i><span>None</span>
+                        </button>
+                        <button class="ribbon-btn large-btn" onmousedown="event.preventDefault()"
+                            onclick="applyAnimation('appear')">
+                            <i class="fa-solid fa-star"></i><span>Appear</span>
+                        </button>
+                        <button class="ribbon-btn large-btn" onmousedown="event.preventDefault()"
+                            onclick="applyAnimation('fade')">
+                            <i class="fa-regular fa-star"></i><span>Fade</span>
+                        </button>
+                        <button class="ribbon-btn large-btn" onmousedown="event.preventDefault()"
+                            onclick="applyAnimation('flyin')">
+                            <i class="fa-solid fa-plane-up"></i><span>Fly In</span>
+                        </button>
+                        <button class="ribbon-btn large-btn" onmousedown="event.preventDefault()"
+                            onclick="applyAnimation('bounce')">
+                            <i class="fa-solid fa-basketball"></i><span>Bounce</span>
+                        </button>
+                    </div>
+                    <span class="group-label">Animation Effects</span>
+                </div>
+            </div>
+
+            <div id="helpTab" class="tab-ribbon">
+                <div class="ribbon-group">
+                    <div class="button-row">
+                        <button class="ribbon-btn" onclick="showHint()"><i class="fa-regular fa-question-circle"></i>
+                            Show Hint</button>
+                    </div>
+                    <span class="group-label">Help</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="workspace">
+            <div class="thumbnails-pane" id="thumbnailPane">
+            </div>
+
+            <div class="canvas-pane" id="canvasPane">
+                <div class="slide-container" id="slideContainer" onkeyup="updateThumbnails()"
+                    onmouseup="saveSelection()">
+                </div>
+            </div>
+        </div>
+
+        <div class="status-bar">
+            <div class="status-left">
+                <span id="slide-count">Slide 1 of 1</span>
+                <span><i class="fa-solid fa-spell-check"></i> English (US)</span>
+                <span id="system-feedback">Ready</span>
+            </div>
+            <div class="status-right">
+                <i class="fa-regular fa-note-sticky"></i> Notes
+                <i class="fa-solid fa-desktop" style="cursor: pointer;" onclick="startPresentation()"></i>
+                <div class="zoom-container">
+                    <i class="fa-solid fa-minus zoom-btn" onclick="adjustZoom(-10)"></i>
+                    <input type="range" id="zoomRange" min="30" max="150" value="100" class="zoom-slider"
+                        oninput="changeZoom(this.value)">
+                    <i class="fa-solid fa-plus zoom-btn" onclick="adjustZoom(10)"></i>
+                    <span id="zoomVal">100%</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-controls">
+            <div id="status-message" class="status-message"></div>
+            <button class="submit-btn" onclick="checkAnswer()">Check Formatting <i
+                    class="fa-solid fa-arrow-right"></i></button>
+        </div>
+    </div>
+
+    <div id="presentationOverlay" class="presentation-overlay" style="display: none;">
+        <div id="presentationSlide" class="presentation-slide"></div>
+        <div class="presentation-controls">
+            <button onclick="prevPresSlide()" title="Previous Slide"><i class="fa-solid fa-chevron-left"></i></button>
+            <button onclick="exitPresentation()" title="End Show (Esc)"><i class="fa-solid fa-times"></i></button>
+            <button onclick="nextPresSlide()" title="Next Slide"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

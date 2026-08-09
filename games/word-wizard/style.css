@@ -1,0 +1,517 @@
+* {
+    box-sizing: border-box;
+}
+
+/* Map Calibri to Carlito web font */
+@font-face {
+    font-family: 'Calibri';
+    src: local('Calibri'), local('Carlito'),
+         url('https://fonts.gstatic.com/s/carlito/v3/24x833vAM1aM8E4mE5s.woff2') format('woff2');
+}
+
+/* Default editor font */
+#editor {
+    font-family: 'Calibri', 'Carlito', 'Segoe UI', sans-serif;
+}
+
+/* Fix underline color inheriting child font color */
+#editor u,
+#editor span,
+#editor font {
+    text-decoration-color: inherit;
+}
+
+body {
+    background-color: #1e1e1e;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.word-app {
+    max-width: 1040px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.45);
+}
+
+/* Title Bar */
+.title-bar {
+    background-color: #106ebe;
+    color: white;
+    padding: 6px 16px;
+    font-size: 0.85rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.quick-access {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.flaticon-app-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.qa-icon {
+    cursor: pointer;
+    opacity: 0.85;
+    font-size: 0.9rem;
+    transition: opacity 0.2s;
+}
+
+.qa-icon:hover { opacity: 1; }
+
+.app-title {
+    font-weight: 600;
+}
+
+/* Header Search */
+.search-bar {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 300px;
+}
+
+.search-bar input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    width: 100%;
+}
+
+.search-bar input::placeholder {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.doc-label {
+    font-size: 0.75rem;
+    opacity: 0.85;
+}
+
+.stats-badge {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 4px 10px;
+    border-radius: 12px;
+    margin-left: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* Menu Tabs Bar */
+.menu-tabs {
+    background-color: #106ebe;
+    padding: 0 16px;
+    display: flex;
+    gap: 4px;
+}
+
+.tab-item {
+    color: white;
+    padding: 6px 14px;
+    font-size: 0.82rem;
+    cursor: pointer;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    user-select: none;
+    transition: background 0.15s;
+}
+
+.tab-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.tab-item.active-tab {
+    background: #f3f2f1;
+    color: #106ebe;
+    font-weight: 600;
+}
+
+/* Challenge Instruction Banner */
+.task-banner {
+    background: #fff8e1;
+    border-bottom: 1px solid #ffe082;
+    padding: 8px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.88rem;
+}
+
+.task-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.flaticon-banner-icon {
+    width: 22px;
+    height: 22px;
+}
+
+.hint-btn {
+    background: transparent;
+    border: 1px solid #ffb300;
+    color: #b26a00;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.78rem;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.hint-btn:hover {
+    background: #ffb300;
+    color: white;
+}
+
+/* Ribbon Controls Area */
+.ribbon-container {
+    background: #f3f2f1;
+    border-bottom: 1px solid #d2d0ce;
+    min-height: 85px;
+    padding: 6px 16px;
+}
+
+.tab-ribbon {
+    display: flex;
+    gap: 8px;
+    align-items: stretch;
+    padding: 6px 12px;
+    background-color: #f3f2f1;
+    min-height: 90px;
+}
+
+.tab-ribbon.active {
+    display: flex;
+}
+
+.ribbon-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 8px;
+}
+
+.button-row {
+    display: flex;
+    gap: 4px;
+    align-items: flex-start;
+    height: 100%;
+}
+
+.group-label {
+    font-size: 0.65rem;
+    color: #605e5c;
+    margin-top: auto;
+    text-align: center;
+}
+
+.ribbon-btn {
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #323130;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    transition: background 0.15s;
+}
+
+.ribbon-btn:hover {
+    background: #e1dfdd;
+}
+
+.ribbon-btn.large-btn {
+    flex-direction: column;
+    justify-content: center;
+    padding: 6px 10px;
+    height: 100%;
+}
+
+.ribbon-btn.large-btn i {
+    font-size: 1.4rem;
+    margin-bottom: 4px;
+    color: #106ebe;
+}
+
+.ribbon-select {
+    height: 28px;
+    padding: 0 4px;
+    border: 1px solid #c8c6c4;
+    border-radius: 3px;
+    font-size: 0.8rem;
+}
+
+.ribbon-divider {
+    width: 1px;
+    min-width: 1px;
+    flex-shrink: 0;
+    background-color: #d1d1d1;
+    margin: 4px 8px;
+    align-self: stretch;
+}
+
+
+.ribbon-checkbox {
+    font-size: 0.78rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+}
+
+/* Custom MS Word Color Pickers */
+.custom-color-picker {
+    position: relative;
+    display: inline-block;
+}
+
+.color-picker-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 6px;
+}
+
+.color-icon-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.color-bar-indicator {
+    display: block;
+    width: 14px;
+    height: 3px;
+    margin-top: 1px;
+    border-radius: 1px;
+}
+
+.drop-caret {
+    font-size: 0.65rem;
+    color: #605e5c;
+}
+
+.color-menu-popup {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 4px;
+    background: #ffffff;
+    border: 1px solid #c8c6c4;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+    padding: 8px;
+    z-index: 1000;
+}
+
+.color-menu-popup.show {
+    display: block;
+}
+
+/* Font Color Palette (Wider layout to comfortably fit colors) */
+.color-menu-popup.font-color-popup {
+    min-width: 270px;
+}
+
+.color-menu-popup.highlight-color-popup {
+    min-width: 175px;
+}
+
+.color-menu-section-title {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #605e5c;
+    margin: 6px 0 4px 2px;
+}
+
+.color-swatch-grid.font-theme-grid,
+.color-swatch-grid.font-standard-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 4px;
+}
+
+.color-swatch-grid.highlight-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+}
+
+.swatch {
+    width: 20px;
+    height: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.1s, outline 0.1s;
+}
+
+.swatch:hover {
+    outline: 2px solid #106ebe;
+    transform: scale(1.15);
+    z-index: 2;
+}
+
+.color-menu-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 6px;
+    cursor: pointer;
+    border-radius: 2px;
+    font-size: 0.8rem;
+    color: #323130;
+}
+
+.color-menu-row:hover {
+    background-color: #f3f2f1;
+}
+
+.color-swatch-box {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    border-radius: 2px;
+}
+
+.no-color-box {
+    color: #a80000;
+    font-size: 0.85rem;
+}
+
+/* Page Container & Canvas */
+.page-container {
+    background: #e3e5e8;
+    padding: 30px 0;
+    display: flex;
+    justify-content: center;
+    overflow-y: auto;
+    max-height: 520px;
+    align-items: flex-start;
+    border-top: 18px solid #e1dfdd;
+}
+
+.editor {
+    width: 816px;
+    min-height: 1056px;
+    padding: 96px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 0 1px rgba(0, 0, 0, 0.2);
+    border: 1px solid #dcdcdc;
+    outline: none;
+    color: #000000;
+    font-size: 11pt;
+    line-height: 1.15;
+    box-sizing: border-box;
+    transition: transform 0.2s ease-out;
+}
+
+.editor:focus {
+    outline: 1px solid #106ebe;
+}
+
+.editor h1 {
+    font-size: 1.8rem;
+    margin-top: 0;
+    margin-bottom: 12px;
+}
+
+.editor p {
+    margin-top: 0;
+    margin-bottom: 12px;
+}
+
+.editor ul, .editor ol {
+    padding-left: 24px;
+    margin-bottom: 12px;
+}
+
+/* Status Bar */
+.status-bar {
+    background-color: #106ebe;
+    color: white;
+    padding: 4px 16px;
+    font-size: 0.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.status-left, .status-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.zoom-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.zoom-btn {
+    cursor: pointer;
+    transition: color 0.15s;
+}
+
+.zoom-btn:hover { color: #dddddd; }
+.zoom-slider { width: 90px; cursor: pointer; }
+
+/* Footer Controls */
+.footer-controls {
+    padding: 10px 20px;
+    background: #ffffff;
+    border-top: 1px solid #e1dfdd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.status-message {
+    font-weight: 600;
+    font-size: 0.88rem;
+}
+
+.status-message.success { color: #107c41; }
+.status-message.error { color: #a80000; }
+
+.submit-btn {
+    background-color: #106ebe;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.88rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s;
+}
+
+.submit-btn:hover {
+    background-color: #005a9e;
+}

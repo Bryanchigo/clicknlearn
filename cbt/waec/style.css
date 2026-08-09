@@ -1,0 +1,570 @@
+:root {
+    /* Light Mode Variables */
+    --bg-main: #e0e5ec;
+    --blob-1: #ffb8d2;
+    --blob-2: #c5d2ff;
+    --blob-3: #fceabb;
+    --glass-bg: rgba(255, 255, 255, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.4);
+    --glass-inner: rgba(255, 255, 255, 0.4);
+    
+    --text-main: #2d3748;
+    --primary: #3182ce;
+    --primary-hover: #2b6cb0;
+    --danger: #e53e3e;
+    --success: #38a169;
+    --warning: #dd6b20;
+}
+
+/* Enable angle animation for the gradient */
+@property --border-angle {
+    syntax: "<angle>";
+    inherits: true;
+    initial-value: 0turn;
+}
+
+/* The spinning animation (rotates exactly once and stops) */
+@keyframes ea-border-spin {
+    0% { 
+        --border-angle: 0turn; 
+        opacity: 1; /* Instantly visible at start */
+    }
+    95% {
+        opacity: 1; /* Keep it glowing for almost the entire spin */
+    }
+    100% { 
+        --border-angle: 1turn; 
+        opacity: 0; /* Disappear immediately upon completing 360 degrees */
+    }
+}
+
+[data-theme="dark"] {
+    /* Dark Mode Variables */
+    --bg-main: #0f172a;
+    --blob-1: #4c1d95;
+    --blob-2: #1e3a8a;
+    --blob-3: #9d174d;
+    --glass-bg: rgba(30, 41, 59, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-inner: rgba(0, 0, 0, 0.3);
+    
+    --text-main: #f8fafc;
+    --primary: #60a5fa;
+    --primary-hover: #3b82f6;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+
+body { 
+    background-color: var(--bg-main); 
+    color: var(--text-main); 
+    transition: background-color 0.4s ease; 
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+body.anti-cheat {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+body.anti-cheat #calc-display {
+    user-select: none;
+}
+
+/* Background Animated Blobs */
+.bg-shape {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: -1;
+    animation: float 15s infinite alternate ease-in-out;
+}
+.shape1 { width: 400px; height: 400px; background: var(--blob-1); top: -100px; left: -100px; }
+.shape2 { width: 500px; height: 500px; background: var(--blob-2); bottom: -150px; right: -100px; animation-delay: -5s; }
+.shape3 { width: 300px; height: 300px; background: var(--blob-3); top: 40%; left: 30%; animation-delay: -10s; }
+
+@keyframes float {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(50px, 50px) scale(1.1); }
+}
+
+/* Glassmorphism Utilities */
+.glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+}
+.glass-inner {
+    background: var(--glass-inner);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(4px);
+    border-radius: 8px;
+}
+
+.top-nav { display: flex; justify-content: space-between; padding: 15px 30px; position: sticky; top: 0; z-index: 100; }
+.top-nav button { background: none; border: none; color: var(--text-main); font-size: 1.2rem; cursor: pointer; }
+
+.screen { display: none; padding: 30px; max-width: 1200px; margin: 0 auto; animation: fadeIn 0.4s; }
+.screen.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.card { padding: 30px; border-radius: 16px; margin-bottom: 20px; }
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+
+/* Buttons */
+.btn { position: relative; z-index: 1; border: 2px solid transparent; background-clip: padding-box; padding: 12px 24px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; transition: 0.2s; }
+.btn::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 10px; /* Usually slightly larger than your button's border-radius */
+    background: conic-gradient(
+        from var(--border-angle),
+        transparent 60%,
+        #00ffcc 100%
+    );
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    padding: 2px;
+}
+/* Trigger animation on button hover */
+.btn:hover::after {
+    opacity: 1;
+    animation: ea-border-spin 0.5s linear forwards;
+}
+
+/* Optional: Add a subtle inner glow to the button text/icon when hovered */
+.btn:hover {
+    box-shadow: inset 0 0 10px rgba(0, 255, 204, 0.2);
+}
+.btn-primary { background: var(--primary); color: white; box-shadow: 0 4px 15px rgba(49, 130, 206, 0.4); }
+.btn-primary:hover { background: var(--primary-hover); transform: translateY(-2px); }
+.btn-outline { background: transparent; border: 1px solid var(--text-main); color: var(--text-main); }
+.btn-outline:hover { background: var(--text-main); color: var(--bg-main); }
+.btn-danger { background: var(--danger); color: white; }
+.btn-icon { background: transparent; border: none; color: var(--text-main); cursor: pointer; font-weight: bold; }
+.full-width { width: 100%; }
+.mt-10 { margin-top: 20px; }
+
+/* Forms */
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; margin-bottom: 8px; font-weight: 600; }
+.form-group.row { display: flex; gap: 20px; }
+.form-group.row > div { flex: 1; }
+input[type="number"], input[type="text"] { width: 100%; padding: 12px; border: 1px solid var(--glass-border); border-radius: 8px; background: var(--glass-inner); color: var(--text-main); }
+input[type="number"], select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    background: var(--glass-inner);
+    color: var(--text-main);
+    margin-top: 5px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+/* =========================================
+   Modern Number Inputs & Steppers
+   ========================================= */
+
+.settings-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(280px, 1fr));
+    gap: 20px;
+    align-items: end;
+}
+
+.settings-row .modern-input-group {
+    max-width: 100%;
+}
+
+/* The wrapper that holds the input and buttons */
+.modern-input-group {
+    position: relative;
+    display: block;
+    width: 100%;
+    max-width: 300px; /* Adjust if you want them wider/narrower */
+}
+
+.modern-input-group input[type="number"] {
+    width: 100%;
+    padding: 14px 80px 14px 15px; 
+    border: 2px solid var(--glass-border);
+    border-radius: 12px;
+    background: var(--glass-bg);
+    color: var(--text-main);
+    font-size: 1.1rem;
+    font-weight: 600;
+    outline: none;
+    transition: all 0.3s ease;
+    -moz-appearance: textfield; /* Hides default arrows in Firefox */
+}
+
+.modern-input-group input[type="number"]:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.2);
+}
+
+/* Hides default arrows in Chrome, Safari, Edge */
+.modern-input-group input[type="number"]::-webkit-outer-spin-button,
+.modern-input-group input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* The container for the + and - buttons */
+.stepper-controls {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    gap: 4px;
+    background: transparent;
+    border-radius: 8px;
+    padding: 4px;
+}
+
+/* The + and - buttons themselves */
+.stepper-controls button {
+    background: transparent;
+    border: none;
+    color: var(--text-main);
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+/* Hover effects for the buttons */
+.stepper-controls button:hover {
+    background: var(--glass-inner);
+    color: white;
+}
+
+.stepper-controls button:active {
+    transform: scale(0.9);
+}
+
+.subject-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; background: var(--glass-inner); padding: 15px; border-radius: 12px; }
+
+/* Exam Layout */
+.exam-header { display: flex; justify-content: space-between; align-items: center; }
+.exam-tools { display: flex; gap: 10px; }
+.timer { font-size: 1.8rem; font-weight: bold; font-family: monospace; letter-spacing: 2px; transition: filter 0.3s ease, opacity 0.3s ease, color 1s linear; }
+.timer.timer-hidden { filter: blur(6px); opacity: 0.5; user-select: none; pointer-events: none;}
+.exam-layout { display: flex; gap: 20px; flex-wrap: wrap; }
+.question-pane { flex: 3; min-width: 300px; }
+.navigator-pane { flex: 1; min-width: 250px; height: fit-content; }
+
+.q-header { display: flex; justify-content: space-between; margin-bottom: 20px; border-bottom: 1px solid var(--glass-border); padding-bottom: 10px; }
+.badge { background: var(--primary); color: white; padding: 6px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: bold; }
+.q-text { font-size: 1.3rem; margin: 20px 0; line-height: 1.6; }
+
+.option { display: flex; align-items: center; gap: 15px; padding: 15px; border: 1px solid var(--glass-border); background: var(--glass-inner); border-radius: 12px; margin-bottom: 12px; cursor: pointer; transition: all 0.2s; }
+.option:hover { transform: translateX(5px); background: rgba(255, 255, 255, 0.2); }
+.option.selected { border: 2px solid var(--primary); background: rgba(49, 130, 206, 0.2); }
+.option input { transform: scale(1.3); pointer-events: none; }
+
+/* Study Mode Styles */
+.option.is-correct { border: 2px solid var(--success); background: rgba(56, 161, 105, 0.2); }
+.option.is-wrong { border: 2px solid var(--danger); background: rgba(229, 62, 62, 0.2); }
+.explanation-box { border-left: 4px solid var(--primary); padding: 15px; margin-top: 20px; font-size: 0.95rem; }
+
+.nav-controls { display: flex; justify-content: space-between; align-items: center; margin-top: 30px; }
+.keyboard-hints { font-size: 0.85rem; opacity: 0.7; }
+
+/* Navigator Grid */
+.legend { display: flex; gap: 10px; font-size: 0.8rem; margin: 15px 0; flex-wrap: wrap; }
+.dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; }
+.dot.answered { background: var(--success); }
+.dot.unanswered { background: var(--text-main); opacity: 0.3; }
+.dot.bookmarked { background: var(--warning); }
+
+.nav-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(45px, 1fr)); gap: 10px; }
+.nav-box { padding: 12px 0; text-align: center; border: 1px solid var(--glass-border); border-radius: 8px; cursor: pointer; background: var(--glass-inner); font-weight: bold; transition: 0.2s; position: relative; overflow: hidden; }
+.nav-box:hover { background: rgba(255,255,255,0.3); }
+.nav-box.answered { background: var(--success); color: white; border-color: var(--success); }
+.nav-box.bookmarked { background: var(--warning); color: var(--text-main); border-color: var(--warning, #ed8936); background-color: transparent;}
+.nav-box.bookmarked::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-right: 18px solid transparent;
+    border-top: 18px solid var(--warning, #ed8936); /* Adjust color if needed */
+}
+.nav-box.active { border: 2px solid var(--primary); transform: scale(1.1); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+
+/* Analytics */
+.score-circle { width: 160px; height: 160px; border-radius: 50%; border: 10px solid var(--primary); display: flex; justify-content: center; align-items: center; font-size: 3rem; font-weight: bold; margin: 20px auto; }
+.analytics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+.breakdown, .chart-container { text-align: left; padding: 25px; }
+
+/* Tools Modal (Calc/Scratchpad) */
+.tool-modal { position: fixed; bottom: 30px; right: 30px; border-radius: 16px; padding: 20px; width: 280px; z-index: 1000; }
+.tool-modal.scratchpad { width: 340px; }
+.calc-header { display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 15px; font-size: 1.1rem; }
+.ios-calc-container {
+    width: 320px;
+    background-color: #000000;
+    padding: 20px;
+    border-radius: 30px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+
+.ios-display {
+    color: white;
+    font-size: 5rem;
+    font-weight: 300;
+    text-align: right;
+    margin-bottom: 20px;
+    padding-right: 10px;
+    height: 100px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    overflow: hidden;
+    white-space: nowrap;
+    background: var(--glass-inner);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.ios-buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.ios-btn {
+    border: none;
+    border-radius: 50%;
+    height: 65px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: filter 0.2s;
+}
+
+.ios-btn:active {
+    filter: brightness(1.5);
+}
+
+.dark-grey {
+    background: var(--glass-inner);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    color: var(--text-main);
+}
+
+.light-grey {
+    background-color: #a5a5a5;
+    color: black;
+}
+
+.orange {
+    background-color: #ff9f0a;
+    color: white;
+}
+
+/* The zero button spans 2 columns and is pill-shaped */
+.zero-btn {
+    grid-column: span 2;
+    border-radius: 40px;
+    justify-content: flex-start;
+    padding-left: 25px;
+}
+
+/* Active operator state (like iOS) */
+.orange.active-op {
+    background-color: white;
+    color: #ff9f0a;
+}
+
+/* Scientific Calculator Adjustments */
+.ios-calc-container.sci-calc {
+    width: 350px; 
+}
+
+.ios-display {
+    transition: font-size 0.15s ease-out; /* Smooth text shrinking/growing */
+    height: 90px;
+}
+
+.ios-btn {
+    height: 60px; /* Slightly shorter to accommodate extra rows */
+    font-size: 1.6rem;
+}
+
+/* Scientific buttons style */
+.sci-dark {
+    background-color: #212121;
+    color: #e0e0e0;
+    font-size: 1.2rem;
+}
+
+#scratch-canvas { background: rgba(255,255,255,0.8); border-radius: 8px; cursor: crosshair; margin-bottom: 15px; width: 100%; }
+
+/* Responsive adjustments */
+@media(max-width: 768px) {
+    .exam-layout { flex-direction: column; }
+    .keyboard-hints { display: none; }
+    .tool-modal { bottom: 10px; right: 10px; left: 10px; width: auto; }
+    .settings-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================
+   Modern Checkboxes & Radio Cards
+   ========================================= */
+
+/* Grid Layouts */
+.modern-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.modern-grid.subjects {
+    grid-template-columns: repeat(auto-fit, minmax(203px, 1fr));
+}
+
+/* Hide default HTML inputs entirely */
+.modern-option input[type="radio"],
+.modern-option input[type="checkbox"] {
+    display: none; 
+}
+
+
+.option-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    border-radius: 12px;
+    border: 2px solid var(--glass-border);
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    background: var(--glass-inner);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    
+    /* ADD THESE TWO LINES */
+    position: relative; 
+    z-index: 1; 
+}
+
+/* The Animated Cyan Glow */
+.option-card::after {
+    content: '';
+    position: absolute;
+    inset: -2px; /* Matches the 2px border thickness */
+    border-radius: 14px; /* Slightly larger than the card's 12px radius */
+    background: conic-gradient(
+        from var(--border-angle),
+        transparent 60%,
+        #00ffcc 100% /* The bright cyan/teal color from the video */
+    );
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    
+    /* This mask ensures the gradient ONLY shows on the border, leaving the center hollow */
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    padding: 2px;
+}
+
+/* Trigger the traveling border when hovering the card */
+.modern-option:hover .option-card::after {
+    animation: ea-border-spin 0.6s linear forwards; /* 'forwards' makes it stop after 1 loop */
+}
+
+/* Keep it fully cyan when a user actually selects/clicks the option */
+.modern-option input:checked + .option-card::after {
+    opacity: 1;
+    background: #00ffcc; /* Solid cyan when active */
+    animation: none; /* Stops the spinning when selected */
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
+}
+
+.option-card i {
+    font-size: 1.8rem;
+    color: var(--text-main);
+    opacity: 0.6;
+    transition: all 0.25s ease;
+}
+
+/* Typography Inside Cards */
+.option-text h4 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--text-main);
+}
+
+.option-text p {
+    margin: 4px 0 0 0;
+    font-size: 0.85rem;
+    opacity: 0.7;
+}
+
+.subject-name {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* Hover State */
+.modern-option:hover .option-card {
+    transform: translateY(-2px);
+    border-color: rgba(49, 130, 206, 0.5); /* Faint primary color */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* ACTIVE / CHECKED State */
+.modern-option input:checked + .option-card {
+    border-color: var(--primary);
+    background: rgba(49, 130, 206, 0.1); /* Subtle blue tint */
+    box-shadow: 0 4px 15px rgba(49, 130, 206, 0.2);
+}
+
+/* Make icons pop when active */
+.modern-option input:checked + .option-card i {
+    color: var(--primary);
+    opacity: 1;
+    transform: scale(1.1);
+}

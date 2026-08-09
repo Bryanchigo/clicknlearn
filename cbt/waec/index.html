@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro WAEC CBT Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <div class="bg-shape shape1"></div>
+    <div class="bg-shape shape2"></div>
+    <div class="bg-shape shape3"></div>
+
+    <nav class="top-nav glass">
+        <div class="logo"><i class="fa-solid fa-graduation-cap"></i> WAEC Prep</div>
+        <button id="theme-toggle" aria-label="Toggle dark mode" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i></button>
+    </nav>
+
+    <main id="setup-screen" class="screen active">
+        <div class="card glass text-center">
+            <h1>Exam Configuration</h1>
+            <p>Customize your practice session.</p>
+
+            <div class="form-group text-left mt-10">
+                <label style="font-weight: bold; margin-bottom: 10px; display: block;">Mode Selection</label>
+                <div class="modern-grid">
+                    <label class="modern-option">
+                        <input type="radio" name="examMode" value="study" checked>
+                        <div class="option-card glass-inner">
+                            <i class="fa-solid fa-book-open"></i>
+                            <div class="option-text">
+                                <h4>Study Mode</h4>
+                                <p>Untimed, Instant Explanations</p>
+                            </div>
+                        </div>
+                    </label>
+
+                    <label class="modern-option">
+                        <input type="radio" name="examMode" value="exam">
+                        <div class="option-card glass-inner">
+                            <i class="fa-solid fa-stopwatch"></i>
+                            <div class="option-text">
+                                <h4>Exam Mode</h4>
+                                <p>Strict Timer, Results at End</p>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group text-left mt-10">
+                <label style="font-weight: bold; margin-bottom: 10px; display: block;">Select Subjects</label>
+                <div class="modern-grid subjects">
+                    <label class="modern-option">
+                        <input type="checkbox" name="subject" value="Mathematics">
+                        <div class="option-card glass-inner">
+                            <i class="fa-solid fa-square-root-variable"></i>
+                            <span class="subject-name">Mathematics</span>
+                        </div>
+                    </label>
+
+                    <label class="modern-option">
+                        <input type="checkbox" name="subject" value="English">
+                        <div class="option-card glass-inner">
+                            <i class="fa-solid fa-spell-check"></i>
+                            <span class="subject-name">English</span>
+                        </div>
+                    </label>
+
+                    <label class="modern-option">
+                        <input type="checkbox" name="subject" value="CHS">
+                        <div class="option-card glass-inner">
+                            <i class="fa-solid fa-scale-balanced"></i>
+                            <span class="subject-name">CHS</span>
+                        </div>
+                    </label>
+
+                    <label class="modern-option">
+                        <input type="checkbox" name="subject" value="Economics">
+                        <div class="option-card glass-inner">
+                            <i class="fa-solid fa-chart-line"></i>
+                            <span class="subject-name">Economics</span>
+                        </div>
+                    </label>
+
+                    <label class="modern-option">
+                        <input type="checkbox" name="subject" value="Physics">
+                        <div class="option-card glass-inner">
+                            <i class="fa-solid fa-atom"></i>
+                            <span class="subject-name">Physics</span>
+                        </div>
+                    </label>
+
+                    <label class="modern-option">
+                        <input type="checkbox" name="subject" value="Chemistry">
+                        <div class="option-card glass-inner">
+                            <i class="fa-solid fa-flask"></i>
+                            <span class="subject-name">Chemistry</span>
+                        </div>
+                    </label>
+
+                    <label class="modern-option">
+                        <input type="checkbox" name="subject" value="Biology">
+                        <div class="option-card glass-inner">
+                            <i class="fa-solid fa-dna"></i>
+                            <span class="subject-name">Biology</span>
+                        </div>
+                    </label>
+
+                    <label class="modern-option">
+                        <input type="checkbox" name="subject" value="Geography">
+                        <div class="option-card glass-inner">
+                            <i class="fa-solid fa-earth"></i>
+                            <span class="subject-name">Geography</span>
+                        </div>
+                    </label>
+
+                    <label class="modern-option">
+                        <input type="checkbox" name="subject" value="Further Mathematics">
+                        <div class="option-card glass-inner">
+                            <i class="fa-solid fa-calculator"></i>
+                            <span class="subject-name">Further Mathematics</span>
+                        </div>
+                    </label>
+
+                    <label class="modern-option">
+                        <input type="checkbox" name="subject" value="Technical Drawing">
+                        <div class="option-card glass-inner">
+                            <i class="fa-solid fa-drafting-compass"></i>
+                            <span class="subject-name">Technical Drawing</span>
+                        </div>
+                    </label>
+
+                    <label class="modern-option">
+                        <input type="checkbox" name="subject" value="Data Processing">
+                        <div class="option-card glass-inner">
+                            <i class="fa-solid fa-database"></i>
+                            <span class="subject-name">Data Processing</span>
+                        </div>
+                    </label>
+
+                    <label class="modern-option">
+                        <input type="checkbox" name="subject" value="Computer Studies">
+                        <div class="option-card glass-inner">
+                            <i class="fa-solid fa-laptop-code"></i>
+                            <span class="subject-name">Computer Studies</span>
+                        </div>
+                    </label>
+
+                    <label class="modern-option">
+                        <input type="checkbox" name="subject" value="History">
+                        <div class="option-card glass-inner">
+                            <i class="fa-solid fa-scroll"></i>
+                            <span class="subject-name">History</span>
+                        </div>
+                    </label>
+
+                    <label class="modern-option">
+                        <input type="checkbox" name="subject" value="Government">
+                        <div class="option-card glass-inner">
+                            <i class="fa-solid fa-building-columns"></i>
+                            <span class="subject-name">Government</span>
+                        </div>
+                    </label>
+
+                    <label class="modern-option">
+                        <input type="checkbox" name="subject" value="Literature in English">
+                        <div class="option-card glass-inner">
+                            <i class="fa-solid fa-book-open"></i>
+                            <span class="subject-name">Literature in English</span>
+                        </div>
+                    </label>
+
+                    <label class="modern-option">
+                        <input type="checkbox" name="subject" value="Commerce">
+                        <div class="option-card glass-inner">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            <span class="subject-name">Commerce</span>
+                        </div>
+                    </label>
+
+                    <label class="modern-option">
+                        <input type="checkbox" name="subject" value="French">
+                        <div class="option-card glass-inner">
+                            <i class="fa-solid fa-comments"></i>
+                            <span class="subject-name">French</span>
+                        </div>
+                    </label>
+
+                    <label class="modern-option">
+                        <input type="checkbox" name="subject" value="CRS">
+                        <div class="option-card glass-inner">
+                            <i class="fa-solid fa-book-bible"></i>
+                            <span class="subject-name">CRS</span>
+                        </div>
+                    </label>
+
+                    <label class="modern-option">
+                        <input type="checkbox" name="subject" value="Photography">
+                        <div class="option-card glass-inner">
+                            <i class="fa-solid fa-camera"></i>
+                            <span class="subject-name">Photography</span>
+                        </div>
+                    </label>
+
+                    <label class="modern-option">
+                        <input type="checkbox" name="subject" value="Animal Husbandry">
+                        <div class="option-card glass-inner">
+                            <i class="fa-solid fa-cow"></i>
+                            <span class="subject-name">Animal Husbandry</span>
+                        </div>
+                    </label>
+
+                    <label class="modern-option">
+                        <input type="checkbox" name="subject" value="F & N">
+                        <div class="option-card glass-inner">
+                            <i class="fa-solid fa-utensils"></i>
+                            <span class="subject-name">Foods & Nutrition</span>
+                        </div>
+                    </label>
+
+                    <label class="modern-option">
+                        <input type="checkbox" name="subject" value="P & D">
+                        <div class="option-card glass-inner">
+                            <i class="fa-solid fa-paint-roller"></i>
+                            <span class="subject-name">Painting & Decorating</span>
+                        </div>
+                    </label>
+
+                    <label class="modern-option">
+                        <input type="checkbox" name="subject" value="CCP">
+                        <div class="option-card glass-inner">
+                            <i class="fa-solid fa-kitchen-set"></i>
+                            <span class="subject-name">Catering Craft Practice</span>
+                        </div>
+                    </label>
+
+                </div>
+            </div>
+            <div class="settings-row">
+                <div class="form-group text-left mt-10">
+                    <label style="font-weight: bold; margin-bottom: 10px; display: block;">Questions per Subject</label>
+                    <div class="modern-input-group">
+                        <input type="number" id="q-count" value="10" min="5" max="50">
+                        <div class="stepper-controls">
+                            <button type="button" onclick="document.getElementById('q-count').stepDown()"><i
+                                    class="fa-solid fa-minus"></i></button>
+                            <button type="button" onclick="document.getElementById('q-count').stepUp()"><i
+                                    class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group text-left mt-10">
+                    <label style="font-weight: bold; margin-bottom: 10px; display: block;">Time Limit (Minutes)</label>
+                    <div class="modern-input-group">
+                        <input type="number" id="timer-mins" value="30" min="5" max="180">
+                        <div class="stepper-controls">
+                            <button type="button" onclick="document.getElementById('timer-mins').stepDown()"><i
+                                    class="fa-solid fa-minus"></i></button>
+                            <button type="button" onclick="document.getElementById('timer-mins').stepUp()"><i
+                                    class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary full-width" onclick="initExam()">Start Practice</button>
+            <button id="resume-btn" class="btn btn-outline full-width mt-10" style="display: none;"
+                onclick="resumeExam()">Resume Saved Session</button>
+        </div>
+    </main>
+
+    <main id="exam-screen" class="screen">
+        <div class="exam-header card glass">
+            <div class="exam-tools">
+                <button class="btn btn-outline" onclick="toggleCalculator()"><i class="fa-solid fa-calculator"></i>
+                    Calc</button>
+                <button class="btn btn-outline" onclick="toggleScratchpad()"><i class="fa-solid fa-pen-nib"></i>
+                    Scratchpad</button>
+            </div>
+            <div class="timer-wrapper" style="display: flex; align-items: center; gap: 15px;">
+                <div class="timer" id="timer-display">00:30:00</div>
+                <button id="timer-toggle-btn" class="btn-icon" onclick="toggleTimerVisibility()"
+                    title="Show/Hide Timer">
+                    <i class="fa-solid fa-eye-slash"></i>
+                </button>
+            </div>
+            <button class="btn btn-danger" onclick="confirmSubmit()">Submit</button>
+        </div>
+
+        <div class="exam-layout">
+            <div class="question-pane card glass">
+                <div class="q-header">
+                    <span id="subject-badge" class="badge">Subject</span>
+                    <button id="bookmark-btn" class="btn-icon" onclick="toggleBookmark()"><i
+                            class="fa-regular fa-bookmark"></i> Bookmark</button>
+                </div>
+
+                <h2 class="q-number">Question <span id="q-num">1</span> of <span id="q-total">10</span></h2>
+                <div id="q-text" class="q-text">Loading question...</div>
+
+                <div id="options-container" class="options-group"></div>
+
+                <div id="explanation-box" class="explanation-box glass-inner" style="display: none;"></div>
+
+                <div class="nav-controls">
+                    <button class="btn btn-outline" onclick="navigate(-1)"><i class="fa-solid fa-arrow-left"></i>
+                        Prev</button>
+                    <div class="keyboard-hints">💡 Use keys <strong>A B C D</strong> and <strong>⬅ ➡</strong></div>
+                    <button id="next-btn" class="btn btn-primary" onclick="navigate(1)">Next <i
+                            class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <div class="navigator-pane card glass">
+                <h3>Question Map</h3>
+                <div class="legend">
+                    <span class="dot answered"></span> Answered
+                    <span class="dot unanswered"></span> Pending
+                    <span class="dot bookmarked"></span> Review
+                </div>
+                <div id="nav-grid" class="nav-grid"></div>
+            </div>
+        </div>
+    </main>
+
+    <main id="result-screen" class="screen">
+        <div class="card glass text-center">
+            <h1>Exam Analysis</h1>
+            <div class="score-circle glass-inner">
+                <span id="final-score">0%</span>
+            </div>
+            <p>You scored <strong id="score-raw">0</strong> out of <strong id="score-total">0</strong>.</p>
+
+            <div class="analytics-grid mt-10">
+                <div class="breakdown glass-inner" id="topic-breakdown">
+                    <h3>Topic Weakness Analysis</h3>
+                </div>
+                <div class="chart-container glass-inner">
+                    <h3>Your Progress (Last 10 Tests)</h3>
+                    <canvas id="progressChart"></canvas>
+                </div>
+            </div>
+
+            <button class="btn btn-primary mt-10" onclick="location.reload()">Return Home</button>
+        </div>
+    </main>
+
+    <div id="calc-modal" style="display: none; position: fixed; bottom: 30px; right: 30px; z-index: 1000;">
+
+        <div class="ios-calc-container sci-calc">
+            <div style="text-align: right; margin-bottom: 5px;">
+                <span onclick="toggleCalculator()" style="cursor:pointer; color: #a5a5a5; font-size: 1.2rem;">&times;
+                    Close</span>
+            </div>
+
+            <div class="ios-display" id="ios-display" style="font-size: 5rem;">0</div>
+
+            <div class="ios-buttons-grid">
+                <button class="ios-btn sci-dark" onclick="applyScientific('sin')">sin</button>
+                <button class="ios-btn sci-dark" onclick="applyScientific('cos')">cos</button>
+                <button class="ios-btn sci-dark" onclick="applyScientific('tan')">tan</button>
+                <button class="ios-btn sci-dark" onclick="applyScientific('log')">log</button>
+
+                <button class="ios-btn sci-dark" onclick="applyScientific('sqrt')">√</button>
+                <button class="ios-btn sci-dark" onclick="applyScientific('sq')">x²</button>
+                <button class="ios-btn sci-dark" onclick="applyScientific('cube')">x³</button>
+                <button class="ios-btn sci-dark" onclick="applyScientific('pi')">π</button>
+
+                <button class="ios-btn light-grey" id="ac-btn" onclick="clearCalc()">AC</button>
+                <button class="ios-btn light-grey" onclick="toggleSign()">+/-</button>
+                <button class="ios-btn light-grey" onclick="applyPercentage()">%</button>
+                <button class="ios-btn orange op-btn" id="op-divide" onclick="setOperator('/', 'op-divide')">÷</button>
+
+                <button class="ios-btn dark-grey" onclick="appendNum('7')">7</button>
+                <button class="ios-btn dark-grey" onclick="appendNum('8')">8</button>
+                <button class="ios-btn dark-grey" onclick="appendNum('9')">9</button>
+                <button class="ios-btn orange op-btn" id="op-multiply"
+                    onclick="setOperator('*', 'op-multiply')">×</button>
+
+                <button class="ios-btn dark-grey" onclick="appendNum('4')">4</button>
+                <button class="ios-btn dark-grey" onclick="appendNum('5')">5</button>
+                <button class="ios-btn dark-grey" onclick="appendNum('6')">6</button>
+                <button class="ios-btn orange op-btn" id="op-subtract"
+                    onclick="setOperator('-', 'op-subtract')">-</button>
+
+                <button class="ios-btn dark-grey" onclick="appendNum('1')">1</button>
+                <button class="ios-btn dark-grey" onclick="appendNum('2')">2</button>
+                <button class="ios-btn dark-grey" onclick="appendNum('3')">3</button>
+                <button class="ios-btn orange op-btn" id="op-add" onclick="setOperator('+', 'op-add')">+</button>
+
+                <button class="ios-btn dark-grey zero-btn" onclick="appendNum('0')">0</button>
+                <button class="ios-btn dark-grey" onclick="appendNum('.')">.</button>
+                <button class="ios-btn orange" onclick="calculate()">=</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="scratchpad-modal" class="tool-modal scratchpad glass" style="display: none;">
+        <div class="calc-header">Digital Rough Sheet <span onclick="toggleScratchpad()"
+                style="cursor:pointer">&times;</span></div>
+        <canvas id="scratch-canvas" width="300" height="300"></canvas>
+        <button class="btn btn-outline full-width" onclick="clearScratchpad()">Clear Sheet</button>
+    </div>
+
+    <script type="module" src="js/script.js"></script>
+</body>
+
+</html>

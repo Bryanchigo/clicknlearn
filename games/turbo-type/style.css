@@ -1,0 +1,308 @@
+/* --- VARIABLES & PALETTE --- */
+:root {
+    --gas-green: #00ff88;
+    --nitro-blue: #00d4ff;
+    --error-red: #ff4757;
+    --bg-dark: #07090e;
+    --panel-bg: #111622;
+    --border-color: #232d42;
+    --text-muted: #64748b;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-dark);
+    background-image: radial-gradient(circle at 50% 0%, #162032 0%, var(--bg-dark) 75%);
+    color: white;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* --- GAME CONTAINER --- */
+#game-container {
+    width: 960px;
+    background: var(--panel-bg);
+    border-radius: 24px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    position: relative;
+}
+
+/* --- SCREENS (START & END OVERLAYS) --- */
+.screen {
+    position: absolute;
+    inset: 0;
+    background: rgba(11, 15, 25, 0.94);
+    backdrop-filter: blur(12px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    text-align: center;
+    padding: 2rem;
+}
+
+.hidden { display: none !important; }
+
+.title {
+    font-size: 3.5rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #fff 0%, var(--gas-green) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+    letter-spacing: 3px;
+    filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.3));
+}
+
+.screen p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+/* --- MODE SELECTOR (STRETCHED TO FILL SCREEN) --- */
+.mode-selector {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    width: 85%;
+    max-width: 750px;
+    margin: 2.5rem 0;
+}
+
+/* Completely hide the radio button circle */
+.mode-selector input[type="radio"] {
+    display: none;
+}
+
+/* Style labels as sleek, interactive cards that fill the grid */
+.mode-selector label {
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 1.5rem 1rem;
+    border-radius: 16px;
+    border: 2px solid var(--border-color);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+}
+
+.mode-selector label:hover {
+    border-color: var(--nitro-blue);
+    background: rgba(0, 212, 255, 0.05);
+    transform: translateY(-3px);
+}
+
+.mode-selector span {
+    color: #94a3b8;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: color 0.2s;
+}
+
+/* Active/Checked State Glow */
+.mode-selector label:has(input:checked) {
+    border-color: var(--gas-green);
+    background: rgba(0, 255, 136, 0.08);
+    box-shadow: 0 0 25px rgba(0, 255, 136, 0.15), inset 0 0 10px rgba(0, 255, 136, 0.05);
+    transform: translateY(-3px);
+}
+
+.mode-selector input:checked + span {
+    color: var(--gas-green);
+    font-weight: 800;
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
+/* --- BUTTONS --- */
+button {
+    background: linear-gradient(135deg, var(--gas-green) 0%, #00b359 100%);
+    color: #050b14;
+    border: none;
+    padding: 1.1rem 3.5rem;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    box-shadow: 0 10px 25px -5px rgba(0, 255, 136, 0.4);
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 15px 30px -5px rgba(0, 255, 136, 0.6);
+    background: linear-gradient(135deg, #26ff9a 0%, #00cc66 100%);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* --- RACE TRACK --- */
+#race-track {
+    height: 200px;
+    background: #090d14;
+    position: relative;
+    border-bottom: 2px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
+}
+
+/* Hide extra road lines and only keep one central dashed lane divider */
+.road-line {
+    display: none;
+}
+
+.road-line:nth-child(2) {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: repeating-linear-gradient(90deg, #1e293b 0px, #1e293b 30px, transparent 30px, transparent 60px);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#finish-line {
+    position: absolute;
+    right: 60px;
+    top: 0;
+    bottom: 0;
+    width: 24px;
+    background: repeating-conic-gradient(#fff 0% 25%, #111 0% 50%) 50% / 12px 12px;
+    box-shadow: -5px 0 20px rgba(255, 255, 255, 0.1);
+}
+
+/* --- CARS (CENTERED IN THEIR LANES & FLIPPED) --- */
+.car {
+    position: absolute;
+    font-size: 2.8rem;
+    left: 40px;
+    transition: left 0.1s linear;
+    z-index: 10;
+    /* Centers the emojis vertically in their lane and flips them horizontally to face right */
+    transform: translateY(-50%) scaleX(-1);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.6));
+    line-height: 1;
+    display: flex;
+    align-items: center;
+}
+
+/* 25% pushes the player car perfectly into the middle of the top lane */
+#player-car { 
+    top: 25%; 
+}
+
+/* 75% pushes the bot car perfectly into the middle of the bottom lane */
+#bot-car { 
+    top: 75%; 
+}
+
+/* --- TYPING AREA --- */
+#typing-area {
+    padding: 45px 50px;
+    position: relative;
+    background: rgba(17, 22, 34, 0.6);
+    min-height: 180px;
+    display: flex;
+    align-items: center;
+}
+
+#text-display {
+    font-size: 1.35rem;
+    line-height: 1.8;
+    letter-spacing: 0.5px;
+    word-spacing: 6px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+}
+
+#text-display span {
+    color: #475569;
+    transition: color 0.1s ease, background 0.1s ease;
+    padding: 2px 0;
+}
+
+.correct { 
+    color: var(--gas-green) !important; 
+    text-shadow: 0 0 12px rgba(0, 255, 136, 0.4); 
+}
+
+.incorrect { 
+    color: #fff !important; 
+    background: var(--error-red); 
+    border-radius: 4px;
+    padding: 2px 4px !important;
+    box-shadow: 0 0 10px rgba(255, 71, 87, 0.5);
+}
+
+#hidden-input { opacity: 0; position: absolute; }
+
+.current {
+    border-bottom: 3px solid var(--nitro-blue);
+    color: #f8fafc !important;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* --- HUD & STATS --- */
+#hud {
+    display: flex;
+    justify-content: space-around;
+    padding: 25px;
+    background: #0d111a;
+    border-top: 1px solid var(--border-color);
+}
+
+#end-screen .stat-box {
+    margin-bottom: 2.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    padding: 1.5rem 4rem;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+}
+
+#final-wpm {
+    font-size: 5.5rem;
+    font-weight: 900;
+    color: var(--gas-green);
+    margin-top: 5px;
+    line-height: 1;
+    text-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+}
+
+.stat-box { text-align: center; }
+
+.stat-label { 
+    color: var(--text-muted); 
+    font-size: 0.75rem; 
+    font-weight: 700;
+    text-transform: uppercase; 
+    letter-spacing: 2.5px; 
+    margin-bottom: 4px;
+}
+
+#wpm-counter, #accuracy-counter { 
+    font-size: 2.2rem; 
+    font-weight: 800; 
+    color: var(--nitro-blue); 
+    text-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+}

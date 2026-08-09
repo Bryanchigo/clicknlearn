@@ -1,0 +1,549 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+body {
+    background-color: #090a10;
+    color: #e2e8f0;
+    min-height: 100vh;
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ninja-app {
+    width: 100%;
+    max-width: 1080px;
+    background: #111422;
+    border: 1px solid #232942;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(0, 255, 157, 0.05);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header & Title Bar */
+.title-bar {
+    background: #181c2e;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #232942;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.brand-icon {
+    font-size: 1.4rem;
+    color: #00ff9d;
+    filter: drop-shadow(0 0 8px rgba(0, 255, 157, 0.6));
+}
+
+.brand-title {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    color: #ffffff;
+}
+
+.edition-badge {
+    background: #ff0055;
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.os-toggle-btn {
+    background: #20263d;
+    border: 1px solid #00ff9d;
+    color: #00ff9d;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.os-toggle-btn:hover {
+    background: #00ff9d;
+    color: #090a10;
+    box-shadow: 0 0 12px rgba(0, 255, 157, 0.4);
+}
+
+.icon-btn {
+    background: #20263d;
+    border: 1px solid #323b5c;
+    color: #a0aec0;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.icon-btn:hover {
+    color: #fff;
+    border-color: #00ff9d;
+}
+
+.badge {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Fira Code', monospace;
+}
+
+.xp-badge {
+    background: rgba(255, 184, 0, 0.15);
+    color: #ffb800;
+    border: 1px solid rgba(255, 184, 0, 0.4);
+}
+
+.rank-badge {
+    background: rgba(0, 195, 255, 0.15);
+    color: #00c3ff;
+    border: 1px solid rgba(0, 195, 255, 0.4);
+}
+
+.combo-badge {
+    background: rgba(255, 0, 85, 0.15);
+    color: #ff0055;
+    border: 1px solid rgba(255, 0, 85, 0.5);
+    transition: all 0.2s ease;
+}
+
+.combo-badge.active-combo {
+    animation: pulseCombo 0.4s ease infinite alternate;
+    box-shadow: 0 0 12px rgba(255, 0, 85, 0.6);
+}
+
+@keyframes pulseCombo {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.08); }
+}
+
+/* Task Banner */
+.task-banner {
+    background: #141828;
+    padding: 16px 20px;
+    border-bottom: 1px solid #232942;
+}
+
+.task-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: #a0aec0;
+    margin-bottom: 6px;
+}
+
+.doc-title {
+    font-family: 'Fira Code', monospace;
+    color: #718096;
+}
+
+.task-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    color: #00ff9d;
+    margin-bottom: 6px;
+}
+
+.task-desc {
+    color: #cbd5e0;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.task-desc strong {
+    color: #00c3ff;
+    background: rgba(0, 195, 255, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Fira Code', monospace;
+}
+
+/* Speedrun Timer Bar */
+.timer-wrapper {
+    margin-top: 12px;
+}
+
+.timer-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: #a0aec0;
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.timer-text {
+    font-family: 'Fira Code', monospace;
+    color: #00ff9d;
+    font-weight: 700;
+}
+
+.timer-bar-container {
+    height: 8px;
+    background: #20263d;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.timer-bar {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, #00ff9d, #00c3ff, #ff0055);
+    transition: width 0.1s linear;
+}
+
+/* Boss Battle Combo Chain Stepper */
+.boss-stepper {
+    margin-top: 14px;
+    background: rgba(255, 0, 85, 0.08);
+    border: 1px dashed rgba(255, 0, 85, 0.4);
+    border-radius: 8px;
+    padding: 10px 14px;
+}
+
+.boss-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.8rem;
+    color: #ff0055;
+    font-weight: 800;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.steps-container {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.boss-step-pill {
+    background: #20263d;
+    border: 1px solid #323b5c;
+    color: #a0aec0;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    font-family: 'Fira Code', monospace;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+}
+
+.boss-step-pill.completed {
+    background: rgba(0, 255, 157, 0.15);
+    border-color: #00ff9d;
+    color: #00ff9d;
+}
+
+.boss-step-pill.active {
+    background: rgba(0, 195, 255, 0.2);
+    border-color: #00c3ff;
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 195, 255, 0.5);
+    transform: translateY(-2px);
+}
+
+/* Scroll Editor Window */
+.editor-wrapper {
+    position: relative;
+    padding: 20px;
+    background: #0d0f1a;
+}
+
+.combo-floater {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #ff0055;
+    text-shadow: 0 0 15px rgba(255, 0, 85, 0.8);
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    pointer-events: none;
+}
+
+.combo-floater.show {
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+.scroll-editor {
+    min-height: 120px;
+    background: #141828;
+    border: 1px solid #232942;
+    border-radius: 8px;
+    padding: 16px;
+    color: #00ff9d;
+    font-family: 'Fira Code', monospace;
+    font-size: 1rem;
+    line-height: 1.6;
+    outline: none;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.5);
+    white-space: pre-wrap;
+    word-break: break-word;
+    transition: border-color 0.2s ease;
+}
+
+.scroll-editor:focus {
+    border-color: #00ff9d;
+    box-shadow: 0 0 12px rgba(0, 255, 157, 0.2), inset 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Command Palette Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(9, 10, 16, 0.85);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.modal-card {
+    background: #181c2e;
+    border: 1px solid #00c3ff;
+    box-shadow: 0 0 30px rgba(0, 195, 255, 0.3);
+    width: 90%;
+    max-width: 500px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.modal-header {
+    background: #20263d;
+    padding: 12px 16px;
+    font-weight: 700;
+    color: #00c3ff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+}
+
+.close-modal {
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #a0aec0;
+}
+
+.modal-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.command-input {
+    background: #0d0f1a;
+    border: 1px solid #323b5c;
+    border-radius: 6px;
+    padding: 12px;
+    color: #fff;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.95rem;
+    outline: none;
+}
+
+.command-input:focus {
+    border-color: #00c3ff;
+}
+
+.command-btn {
+    background: #00c3ff;
+    color: #090a10;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.modal-footer {
+    padding: 8px 16px;
+    background: #111422;
+    font-size: 0.75rem;
+    color: #a0aec0;
+    font-family: 'Fira Code', monospace;
+}
+
+/* Interactive Dark Neon Virtual Keyboard */
+.keyboard-section {
+    background: #141828;
+    padding: 16px;
+    border-top: 1px solid #232942;
+    border-bottom: 1px solid #232942;
+}
+
+.keyboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: #718096;
+    margin-bottom: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.combo-display {
+    color: #00ff9d;
+    font-family: 'Fira Code', monospace;
+}
+
+.key-cap {
+    background: #20263d;
+    border: 1px solid #323b5c;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+}
+
+.virtual-keyboard {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    user-select: none;
+}
+
+.kb-row {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+}
+
+.key {
+    background: #1a1e30;
+    border: 1px solid #28304a;
+    color: #a0aec0;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.8rem;
+    font-weight: 600;
+    height: 38px;
+    min-width: 38px;
+    padding: 0 10px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 0 #101320;
+    transition: all 0.08s ease;
+}
+
+.key.active {
+    background: #00ff9d;
+    color: #090a10;
+    border-color: #00ff9d;
+    box-shadow: 0 0 15px rgba(0, 255, 157, 0.8), inset 0 0 6px #ffffff;
+    transform: translateY(2px);
+    font-weight: 800;
+}
+
+/* Key Width Utilities */
+.key-backspace { min-width: 65px; }
+.key-tab { min-width: 55px; }
+.key-slash { min-width: 45px; }
+.key-caps { min-width: 65px; }
+.key-enter { min-width: 75px; background: #222942; }
+.key-shift-left { min-width: 90px; }
+.key-shift-right { min-width: 90px; }
+.key-mod { min-width: 60px; color: #00c3ff; border-color: rgba(0, 195, 255, 0.3); }
+.key-alt { min-width: 50px; }
+.key-space { flex: 1; max-width: 280px; }
+
+/* Footer & Status Bar */
+.footer-bar {
+    background: #181c2e;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.status-message {
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-message.info { color: #00c3ff; }
+.status-message.success { color: #00ff9d; }
+.status-message.error { color: #ff0055; }
+
+.action-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.btn {
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+
+.btn-hint { background: #2a2438; color: #ffb800; border: 1px solid rgba(255, 184, 0, 0.4); }
+.btn-secondary { background: #20263d; color: #a0aec0; border: 1px solid #323b5c; }
+.btn-nav { background: #20263d; color: #fff; border: 1px solid #323b5c; }
+.btn-primary { background: #00ff9d; color: #090a10; }
+
+.btn:hover {
+    transform: translateY(-1px);
+    opacity: 0.9;
+}

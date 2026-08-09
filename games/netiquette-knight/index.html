@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netiquette Knight | ClicknLearn</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="game-container">
+        <header id="hud">
+            <div class="stat-box">
+                <span class="stat-label">Honor Points</span>
+                <span id="score-val">0</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">Knight Title</span>
+                <span id="rank-val">Squire</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">Shield Integrity</span>
+                <div class="gauge-bar"><div id="gauge-fill"></div></div>
+            </div>
+        </header>
+
+        <main id="arena-area">
+            <div id="scenario-card">
+                <div class="app-header">
+                    <div class="chat-user-profile">
+                        <div class="avatar-circle" id="speaker-avatar">👑</div>
+                        <div class="chat-user-details">
+                            <span id="speaker-name" class="contact-name">Tiffany</span>
+                            <span id="speaker-status" class="contact-status">online</span>
+                        </div>
+                    </div>
+                    <div class="header-actions">
+                        <span class="icon">📹</span>
+                        <span class="icon">📞</span>
+                        <span class="icon">⋮</span>
+                    </div>
+                </div>
+
+                <div id="chat-window">
+                    <div class="date-badge">TODAY</div>
+                    
+                    <div class="encryption-notice">
+                        🔒 Messages in this realm are protected by the Netiquette Shield. Respectful communication keeps the community safe.
+                    </div>
+
+                    <div id="message-feed">
+                        </div>
+                </div>
+
+                <p id="knight-prompt">Select your response to send back:</p>
+
+                <div id="choices-container" class="choices-grid">
+                    </div>
+            </div>
+
+            <div id="feedback-modal" class="screen hidden">
+                <div class="feedback-card">
+                    <div id="feedback-icon">🛡️</div>
+                    <h2 id="feedback-title">VALIANT RESPONSE!</h2>
+                    <div id="feedback-tag" class="tag-honor">+10 HONOR POINTS</div>
+                    <p id="feedback-desc">By de-escalating the situation calmly, you protected your team and maintained digital respect in the chat realm!</p>
+                    <button id="btn-next" onclick="nextQuest()">Next Challenge ➔</button>
+                </div>
+            </div>
+
+            <div id="start-screen" class="screen">
+                <h1 class="title">⚔️ NETIQUETTE KNIGHT</h1>
+                <p>Welcome, brave defender! Defuse drama, handle toxic messages, and support others by picking honorable chat replies in real-time messaging scenarios!</p>
+                
+                <div class="mode-selector">
+                    <label class="active">
+                        <input type="radio" name="difficulty" value="squire" checked>
+                        <span>Squire Patrol (3 Mistakes Allowed)</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="difficulty" value="paladin">
+                        <span>Paladin Trial (1 Mistake = Game Over)</span>
+                    </label>
+                </div>
+
+                <button id="start-btn">Enter the Chat Realm 🛡️</button>
+                <a href="../../index.html" class="back-link">← Back to Arcade</a>
+            </div>
+
+            <div id="end-screen" class="screen hidden">
+                <h1 id="end-title" class="title" style="color: var(--error-red);">CHAT REALM OVERRUN</h1>
+                <p id="end-reason">Toxic behavior went unchecked and broke your Shield of Respect! Here is your shift report:</p>
+                
+                <div class="final-stats">
+                    <div class="stat-box">
+                        <span class="stat-label">Honor Earned</span>
+                        <span id="final-score">0</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Final Rank</span>
+                        <span id="final-rank">Squire</span>
+                    </div>
+                </div>
+
+                <button id="restart-btn">Try Again ↻</button>
+                <a href="../../index.html" class="back-link">← Back to Arcade</a>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

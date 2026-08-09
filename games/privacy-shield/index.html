@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Shield | Data Protection Simulator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="game-app">
+        <header id="hud">
+            <div class="hud-stat">
+                <span class="hud-label">Security Score</span>
+                <span id="score-val" class="hud-value">0</span>
+            </div>
+            <div class="hud-stat">
+                <span class="hud-label">Clearance Level</span>
+                <span id="level-val" class="hud-value">Level 1 - Trainee</span>
+            </div>
+            <div class="hud-stat">
+                <span class="hud-label">System Integrity</span>
+                <div class="gauge-container">
+                    <div id="integrity-bar"></div>
+                </div>
+            </div>
+        </header>
+
+        <main id="terminal-screen">
+            <div id="alert-banner" class="banner hidden">
+                <span class="banner-icon">⚠️</span>
+                <div class="banner-text">
+                    <strong id="banner-title">DATA LEAK DETECTED</strong>
+                    <p id="banner-subtitle">Sensitive personal info found in stream!</p>
+                </div>
+            </div>
+
+            <div id="inspector-card">
+                <div class="card-header">
+                    <span class="channel-tag">INCOMING DATA STREAM #<span id="stream-id">4092</span></span>
+                    <span class="timestamp" id="msg-time">10:42 AM</span>
+                </div>
+
+                <div class="sender-info">
+                    <div class="avatar" id="sender-avatar">👤</div>
+                    <div>
+                        <div id="sender-name" class="sender-title">Unknown Sender</div>
+                        <div id="sender-handle" class="sender-sub">@user_391</div>
+                    </div>
+                </div>
+
+                <div class="message-box">
+                    <p id="message-text">Loading incoming message stream...</p>
+                </div>
+
+                <div id="detection-chips" class="chips-wrapper">
+                    </div>
+            </div>
+
+            <div id="control-panel">
+                <button id="shield-btn" class="ctrl-btn btn-shield">
+                    <span class="btn-icon">🛡️</span> Activate Privacy Shield (Redact)
+                </button>
+                <div class="action-row">
+                    <button id="pass-btn" class="ctrl-btn btn-pass">
+                        <span class="btn-icon">✅</span> Approve Safe Message
+                    </button>
+                    <button id="block-btn" class="ctrl-btn btn-block">
+                        <span class="btn-icon">🚫</span> Block & Report Leak
+                    </button>
+                </div>
+            </div>
+
+            <div id="start-overlay" class="overlay">
+                <div class="overlay-card">
+                    <div class="logo">🛡️</div>
+                    <h1>PRIVACY SHIELD</h1>
+                    <p class="subtitle">Data Leak Prevention Terminal</p>
+                    <div class="instructions">
+                        <p>🔒 <strong>Your Mission:</strong> Inspect raw network messages for personal data leaks (phones, addresses, passwords, SSNs, emails).</p>
+                        <p>🛡️ Click <strong>Activate Shield</strong> to redact private data before forwarding.</p>
+                        <p>🚫 Click <strong>Block</strong> for phishing attempts and malware scams.</p>
+                    </div>
+                    <button id="start-btn" class="primary-btn">Initialize Terminal ➔</button>
+                </div>
+            </div>
+
+            <div id="result-modal" class="modal hidden">
+                <div class="modal-card">
+                    <div id="result-icon">🛡️</div>
+                    <h2 id="result-title">PRIVACY SECURED!</h2>
+                    <p id="result-desc">You successfully redacted private data before transmission.</p>
+                    <button id="next-btn" class="primary-btn">Next Message Stream ➔</button>
+                </div>
+            </div>
+
+            <div id="gameover-overlay" class="overlay hidden">
+                <div class="overlay-card">
+                    <div class="logo">💥</div>
+                    <h1 style="color: #e74c3c;">CRITICAL DATA BREACH</h1>
+                    <p class="subtitle">System Integrity Depleted!</p>
+                    <div class="final-box">
+                        <p>Final Security Score: <strong id="final-score">0</strong></p>
+                        <p>Rank Reached: <strong id="final-rank">Trainee</strong></p>
+                    </div>
+                    <button id="restart-btn" class="primary-btn">Reboot Terminal ↻</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

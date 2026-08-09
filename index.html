@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClicknLearn | Master the Digital World</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">🚀 ClicknLearn</div>
+        <ul class="nav-links">
+            <li><a href="about.html">Why Tech?</a></li>
+
+            <li class="dropdown">
+                <a href="#tracks" class="dropdown-btn" onclick="selectTrack('computer-basics')">Computer Basics</a>
+                <ul class="dropdown-menu">
+                    <li><a href="games/turbo-type/index.html" target="_blank">🏎️ Turbo Type</a></li>
+                    <li><a href="games/keyboard-ninja/index.html" target="_blank">🥷 Keyboard Ninja</a></li>
+                    <li><a href="games/mouse-master/index.html" target="_blank">🖱️ Mouse Master</a></li>
+                    <li><a href="games/folder-frenzy/index.html" target="_blank">📁 Folder Frenzy</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown">
+                <a href="#tracks" class="dropdown-btn" onclick="selectTrack('internet-safety')">Internet Safety</a>
+                <ul class="dropdown-menu">
+                    <li><a href="games/cyber-guardian/index.html" target="_blank">🛡️ Cyber Guardian</a></li>
+                    <li><a href="games/password-protector/index.html" target="_blank">🔍 Password Protector</a></li>
+                    <li><a href="games/phishing-hunter/index.html" target="_blank">🎣 Phishing Hunter</a></li>
+                    <li><a href="games/privacy-shield/index.html" target="_blank">👤 Privacy Shield</a></li>
+                    <li><a href="games/netiquette-knight/index.html" target="_blank">⚔️ Netiquette Knight</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown">
+                <a href="#tracks" class="dropdown-btn" onclick="selectTrack('office-productivity')">MS Office Suite</a>
+                <ul class="dropdown-menu">
+                    <li><a href="games/word-wizard/index.html" target="_blank">📄 Word Wizard</a></li>
+                    <li><a href="games/excel-alchemist/index.html" target="_blank">📈 Excel Alchemist</a></li>
+                    <li><a href="games/powerpoint-pioneer/index.html" target="_blank">🖥️ PowerPoint Pioneer</a></li>
+                    <li><a href="games/shortcut-ninja/index.html" target="_blank">🥷 Shortcut Ninja</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown">
+                <a href="#tracks" class="dropdown-btn" onclick="selectTrack('exam-prep')">Resources</a>
+                <ul class="dropdown-menu">
+                    <li><a href="cbt/waec/index.html" target="_blank">🎓 WAEC Practice</a></li>
+                    <li><a href="cbt/jamb/index.html" target="_blank">📝 JAMB Practice</a></li>
+                </ul>
+            </li>
+        </ul>
+        <a href="#tracks" class="btn-primary">Start Learning</a>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <span class="badge">New Courses Available 🎉</span>
+            <h1>Level Up Your Digital Skills</h1>
+            <p>From mastering your keyboard to building your first website, learn the computer skills you need for
+                school, fun, and your future—all at your own pace.</p>
+            <div class="hero-buttons">
+                <a href="#tracks" class="btn-primary">Explore Courses</a>
+                <a href="#games" class="btn-secondary">View All Games</a>
+            </div>
+        </div>
+        <div class="hero-image-container">
+            <img src="https://media.istockphoto.com/id/1770698041/de/foto/sch%C3%BClerin-mit-desktop-pc-im-computerunterricht-in-der-grundschule.jpg?s=612x612&w=0&k=20&c=BTbDsPcU3ddmJ1LxQdwcT76PCHGRa-o3UZ1qjKr3kXw="
+                alt="Students Learning" class="hero-image">
+        </div>
+    </section>
+
+    <section id="tracks" class="tracks-section">
+        <h2>Choose Your Learning Track</h2>
+        <p class="subtitle">Click a track to view its dedicated games!</p>
+
+        <div class="tracks-grid">
+            <div class="track-card active" onclick="filterGames('computer-basics', this)">
+                <div class="track-icon">💻</div>
+                <h3>Computer Basics</h3>
+                <p>Master key tools, typing, file organization, and hardware basics.</p>
+            </div>
+            <div class="track-card" onclick="filterGames('internet-safety', this)">
+                <div class="track-icon">👨‍💻</div>
+                <h3>Internet Safety</h3>
+                <p>Stay secure, detect phishing, and protect your privacy online.</p>
+            </div>
+            <div class="track-card" onclick="filterGames('office-productivity', this)">
+                <div class="track-icon">📊</div>
+                <h3>MS Office Productivity</h3>
+                <p>Master Word, Excel, PowerPoint, and keyboard shortcuts for school projects.</p>
+            </div>
+            <div class="track-card" onclick="filterGames('exam-prep', this)">
+                <div class="track-icon">📚</div>
+                <h3>CBT Practice</h3>
+                <p>Build confidence with realistic CBT practice and improve your digital test-taking skills.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="games" class="games-section">
+        <div class="section-header">
+            <h2>Featured Games & Simulators</h2>
+            <p class="subtitle">Play interactive games designed to build real digital skills.</p>
+        </div>
+
+        <div class="games-grid">
+            <div class="game-card" data-category="computer-basics">
+                <div class="game-thumb">
+                    <span class="badge-tag">Typing Game</span>
+                    <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80"
+                        alt="Turbo Type Racing">
+                </div>
+                <div class="game-info">
+                    <span class="tag typing">Speed & Precision</span>
+                    <h4>Turbo Type: City Circuit</h4>
+                    <p>Race against smart bots by typing real-world passages. Boost your WPM and accuracy!</p>
+                    <a href="games/turbo-type/index.html" target="_blank" class="btn-play">Play Now</a>
+                </div>
+            </div>
+
+            <div class="game-card" data-category="computer-basics">
+                <div class="game-thumb">
+                    <span class="badge-tag">Keyboard Skills</span>
+                    <img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=600&q=80"
+                        alt="Keyboard Ninja">
+                </div>
+                <div class="game-info">
+                    <span class="tag typing">Key Recognition</span>
+                    <h4>Keyboard Ninja</h4>
+                    <p>Slice through falling letters and symbols to build quick muscle memory on the home row keys.</p>
+                    <a href="games/keyboard-ninja/index.html" target="_blank" class="btn-play">Play Now</a>
+                </div>
+            </div>
+
+            <div class="game-card" data-category="computer-basics">
+                <div class="game-thumb">
+                    <span class="badge-tag">Navigation</span>
+                    <img src="https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format&fit=crop&w=600&q=80"
+                        alt="Mouse Master">
+                </div>
+                <div class="game-info">
+                    <span class="tag mouse">Mouse Skills</span>
+                    <h4>Mouse Master</h4>
+                    <p>Practice clicking, double-clicking, and drag-and-drop actions in a fun maze challenge.</p>
+                    <a href="games/mouse-master/index.html" target="_blank" class="btn-play">Play Now</a>
+                </div>
+            </div>
+
+            <div class="game-card" data-category="computer-basics">
+                <div class="game-thumb">
+                    <span class="badge-tag">File Management</span>
+                    <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=600&q=80"
+                        alt="Folder Frenzy">
+                </div>
+                <div class="game-info">
+                    <span class="tag files">Organization</span>
+                    <h4>Folder Frenzy</h4>
+                    <p>Sort digital documents, images, and downloads into the correct folders before time runs out!</p>
+                    <a href="games/folder-frenzy/index.html" target="_blank" class="btn-play">Play Now</a>
+                </div>
+            </div>
+
+            <div class="game-card" data-category="office-productivity">
+                <div class="game-thumb">
+                    <span class="badge-tag">Word Processing</span>
+                    <img src="https://images.unsplash.com/photo-1658203897415-3cad6cfad5c0?auto=format&fit=crop&w=600&q=80"
+                        alt="Word Wizard">
+                </div>
+                <div class="game-info">
+                    <span class="tag word">Microsoft Word</span>
+                    <h4>Word Wizard</h4>
+                    <p>Master document formatting, line spacing, margins, headers, bullet lists, and styles to turn raw
+                        text into polished reports.</p>
+                    <a href="games/word-wizard/index.html" target="_blank" class="btn-play">Play Now</a>
+                </div>
+            </div>
+
+            <div class="game-card" data-category="office-productivity">
+                <div class="game-thumb">
+                    <span class="badge-tag">Spreadsheets</span>
+                    <img src="https://images.unsplash.com/photo-1658203897339-0b8c64a42fba?auto=format&fit=crop&w=600&q=80"
+                        alt="Excel Alchemist">
+                </div>
+                <div class="game-info">
+                    <span class="tag excel">Microsoft Excel</span>
+                    <h4>Excel Alchemist</h4>
+                    <p>Concoct formulas like SUM, AVERAGE, and IF statements, format cell grids, and construct clear
+                        charts from raw school data.</p>
+                    <a href="games/excel-alchemist/index.html" target="_blank" class="btn-play">Play Now</a>
+                </div>
+            </div>
+
+            <div class="game-card" data-category="office-productivity">
+                <div class="game-thumb">
+                    <span class="badge-tag">Presentations</span>
+                    <img src="https://images.unsplash.com/photo-1658203897406-9ef9e2af686c?auto=format&fit=crop&w=600&q=80"
+                        alt="PowerPoint Pioneer">
+                </div>
+                <div class="game-info">
+                    <span class="tag powerpoint">Microsoft PowerPoint</span>
+                    <h4>PowerPoint Pioneer</h4>
+                    <p>Design high-impact slide decks by balancing visual layouts, managing slide transitions, and using
+                        animations effectively.</p>
+                    <a href="games/powerpoint-pioneer/index.html" target="_blank" class="btn-play">Play Now</a>
+                </div>
+            </div>
+
+            <div class="game-card" data-category="office-productivity">
+                <div class="game-thumb">
+                    <span class="badge-tag">Workflow Speed</span>
+                    <img src="https://images.unsplash.com/photo-1601445638532-3c6f6c3aa1d6?auto=format&fit=crop&w=600&q=80"
+                        alt="Shortcut Ninja">
+                </div>
+                <div class="game-info">
+                    <span class="tag typing">Hotkeys & Workflow</span>
+                    <h4>Shortcut Ninja</h4>
+                    <p>Test your reflexes using essential shortcuts like Ctrl+C, Ctrl+V, Ctrl+Z, Ctrl+F, and Alt+Tab
+                        across all office software.</p>
+                    <a href="games/shortcut-ninja/index.html" target="_blank" class="btn-play">Play Now</a>
+                </div>
+            </div>
+
+            <div class="game-card" data-category="internet-safety">
+                <div class="game-thumb">
+                    <span class="badge-tag">Security</span>
+                    <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=600&q=80"
+                        alt="Cyber Guardian">
+                </div>
+                <div class="game-info">
+                    <span class="tag safety">Safety</span>
+                    <h4>Cyber Guardian</h4>
+                    <p>Spot phishing emails, create strong passwords, and protect your digital footprint online.</p>
+                    <a href="games/cyber-guardian/index.html" target="_blank" class="btn-play">Play Now</a>
+                </div>
+            </div>
+
+            <div class="game-card" data-category="internet-safety">
+                <div class="game-thumb">
+                    <span class="badge-tag">Defense</span>
+                    <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=600&q=80"
+                        alt="Password Protector">
+                </div>
+                <div class="game-info">
+                    <span class="tag safety">Vault Defense</span>
+                    <h4>Password Protector</h4>
+                    <p>Power up defense lasers by strengthening weak passwords and vaporizing brute-force hacker bots!
+                    </p>
+                    <a href="games/password-protector/index.html" target="_blank" class="btn-play">Play Now</a>
+                </div>
+            </div>
+
+            <div class="game-card" data-category="internet-safety">
+                <div class="game-thumb">
+                    <span class="badge-tag">Scam Detection</span>
+                    <img src="https://images.unsplash.com/photo-1624969862644-791f3dc98927?auto=format&fit=crop&w=600&q=80"
+                        alt="Phishing Hunter">
+                </div>
+                <div class="game-info">
+                    <span class="tag safety">Link Inspection</span>
+                    <h4>Phishing Hunter</h4>
+                    <p>Examine web addresses, fake pop-ups, and trick emails to catch online scammers red-handed!</p>
+                    <a href="games/phishing-hunter/index.html" target="_blank" class="btn-play">Play Now</a>
+                </div>
+            </div>
+
+            <div class="game-card" data-category="internet-safety">
+                <div class="game-thumb">
+                    <span class="badge-tag">Digital Footprint</span>
+                    <img src="https://plus.unsplash.com/premium_photo-1674669009418-2643aa58b11b?auto=format&fit=crop&w=600&q=80"
+                        alt="Privacy Shield">
+                </div>
+                <div class="game-info">
+                    <span class="tag safety">Privacy Control</span>
+                    <h4>Privacy Shield</h4>
+                    <p>Manage app permissions, social media posts, and location settings to protect your personal data
+                        online.</p>
+                    <a href="games/privacy-shield/index.html" target="_blank" class="btn-play">Play Now</a>
+                </div>
+            </div>
+
+            <div class="game-card" data-category="internet-safety">
+                <div class="game-thumb">
+                    <span class="badge-tag">Digital Citizenship</span>
+                    <img src="https://plus.unsplash.com/premium_photo-1681883457631-e21611e38757?auto=format&fit=crop&w=600&q=80"
+                        alt="Netiquette Knight">
+                </div>
+                <div class="game-info">
+                    <span class="tag safety">Netiquette</span>
+                    <h4>Netiquette Knight</h4>
+                    <p>Navigate chat rooms, respond to digital drama, and stand up against cyberbullying respectfully!
+                    </p>
+                    <a href="games/netiquette-knight/index.html" target="_blank" class="btn-play">Play Now</a>
+                </div>
+            </div>
+
+            <div class="game-card" data-category="exam-prep">
+                <div class="game-thumb" style="height: 220px">
+                    <span class="badge-tag">WAEC</span>
+                    <img src="https://media.istockphoto.com/id/1492740388/de/foto/klausuren-schreiben-schattierung.jpg?s=612x612&w=0&k=20&c=tU0p8qebmI3ERHWPNh6ufxqaq5R0-pMEfYm3lxm5aQM="
+                        alt="WAEC CBT Practice">
+                </div>
+                <div class="game-info">
+                    <span class="tag exam">SSCE</span>
+                    <h4>WAEC CBT Simulator</h4>
+                    <p>Practice standard SSCE questions in Mathematics, English, and Sciences. Master the syllabus with
+                        real-time grading!
+                    </p>
+                    <a href="cbt/waec/index.html" class="btn-play">Start Practice</a>
+                </div>
+            </div>
+
+            <div class="game-card" data-category="exam-prep">
+                <div class="game-thumb" style="height: 220px;">
+                    <span class="badge-tag">JAMB</span>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSX9GOxU0PoM3Nl0wN1x1tpDrtHUWbnXoVs0ftumICN8A&s=10?auto=format&fit=crop&w=600&q=80"
+                        alt="JAMB CBT Simulator">
+                </div>
+                <div class="game-info">
+                    <span class="tag exam">UTME</span>
+                    <h4>JAMB CBT Simulator</h4>
+                    <p>Experience the actual JAMB computer-based test environment. Test your speed and track your score
+                        across 4 subjects!
+                    </p>
+                    <a href="cbt/jamb/index.html" class="btn-play">Take Mock Exam</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 ClicknLearn. Empowering students through digital literacy.</p>
+    </footer>
+
+    <script>
+        function filterGames(category, clickedCard) {
+            document.querySelectorAll('.track-card').forEach(card => card.classList.remove('active'));
+            if (clickedCard) clickedCard.classList.add('active');
+
+            const games = document.querySelectorAll('.game-card');
+            games.forEach(game => {
+                if (game.dataset.category === category) {
+                    game.style.display = 'flex';
+                } else {
+                    game.style.display = 'none';
+                }
+            });
+        }
+
+        function selectTrack(category) {
+            setTimeout(() => {
+                const cards = document.querySelectorAll('.track-card');
+
+                const map = {
+                    'computer-basics': 0,
+                    'internet-safety': 1,
+                    'office-productivity': 2,
+                    'exam-prep': 3
+                };
+
+                const card = cards[map[category]];
+
+                if (card) {
+                    filterGames(category, card);
+                }
+            }, 100);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const defaultCard = document.querySelector('.track-card');
+            if (defaultCard) filterGames('computer-basics', defaultCard);
+        });
+    </script>
+</body>
+
+</html>

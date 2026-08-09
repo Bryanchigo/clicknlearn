@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mouse Master - Cyber Edition</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="game-container">
+        <div class="grid-overlay"></div>
+
+        <div id="hud" class="hidden">
+            <div class="hud-card">SCORE <span id="score">0</span></div>
+            <div class="hud-card highlight">HIGH SCORE <span id="high-score-hud">0</span></div>
+            <div class="hud-card">TIME <span id="timer">30</span>s</div>
+            <div class="hud-card">LIVES <span id="lives">❤️❤️❤️</span></div>
+        </div>
+    
+        <div id="start-screen" class="screen">
+            <div class="logo-badge">SYSTEM READY</div>
+            <h1 class="glitch-title">MOUSE MASTER</h1>
+            <p class="subtitle">REFLEX & PRECISION TRAINING PROTOCOL</p>
+
+            <div class="high-score-banner">
+                <span>PERSONAL BEST:</span>
+                <strong id="start-high-score">0</strong>
+            </div>
+
+            <div class="button-group">
+                <button id="start-btn" class="cyber-btn primary">
+                    <span class="btn-glow"></span>
+                    <span class="btn-text">INITIALIZE GAME</span>
+                </button>
+                <button id="help-btn" class="cyber-btn secondary">
+                    <span class="btn-text">HOW TO PLAY</span>
+                </button>
+            </div>
+        </div>
+    
+        <div id="help-modal" class="screen hidden">
+            <div class="modal-content">
+                <h2>OPERATIONAL MANUAL</h2>
+                <div class="guide-grid">
+                    <div class="guide-item">
+                        <div class="preview-target click-me">1x</div>
+                        <div><strong>Cyan Node:</strong> Click once (+10 PTS)</div>
+                    </div>
+                    <div class="guide-item">
+                        <div class="preview-target double-click-me">2x</div>
+                        <div><strong>Orange Node:</strong> Double click (+20 PTS)</div>
+                    </div>
+                    <div class="guide-item">
+                        <div class="preview-target bonus-me">⭐</div>
+                        <div><strong>Gold Node:</strong> Bonus (+30 PTS +3s)</div>
+                    </div>
+                    <div class="guide-item">
+                        <div class="preview-target hazard-me">💣</div>
+                        <div><strong>Red Hazard:</strong> DO NOT CLICK (-1 Life)</div>
+                    </div>
+                    <div class="guide-item full-width">
+                        <div class="preview-target draggable-preview">📦</div>
+                        <div><strong>Purple Modules:</strong> Drag into the drop target (+50 PTS)</div>
+                    </div>
+                </div>
+                <button id="close-help-btn" class="cyber-btn secondary">ACKNOWLEDGE</button>
+            </div>
+        </div>
+    
+        <div id="end-screen" class="screen hidden">
+            <h1 id="end-title" class="glitch-title">TRAINING COMPLETE</h1>
+            <div class="results-card">
+                <div class="res-row">
+                    <span>FINAL SCORE</span>
+                    <strong id="final-score">0</strong>
+                </div>
+                <div class="res-row">
+                    <span>BEST RECORD</span>
+                    <strong id="final-best">0</strong>
+                </div>
+            </div>
+            <button id="restart-btn" class="cyber-btn primary">
+                <span class="btn-text">REBOOT SYSTEM</span>
+            </button>
+        </div>
+    
+        <div id="game-area"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

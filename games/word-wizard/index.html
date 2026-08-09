@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Wizard | MS Word Simulator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="word-app">
+        <div class="title-bar">
+            <div class="quick-access">
+                <img src="https://cdn-icons-png.flaticon.com/128/732/732226.png" alt="Word Icon"
+                    class="flaticon-app-icon">
+                <i class="fa-solid fa-floppy-disk qa-icon" title="Save Document" onclick="saveDocument()"></i>
+                <i class="fa-solid fa-rotate-left qa-icon" title="Undo (Ctrl+Z)" onclick="formatDoc('undo')"></i>
+                <i class="fa-solid fa-rotate-right qa-icon" title="Redo (Ctrl+Y)" onclick="formatDoc('redo')"></i>
+                <i class="fa-solid fa-print qa-icon" title="Print Document" onclick="printDocument()"></i>
+                <span class="app-title">Word Wizard</span>
+            </div>
+
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Search in document..." onkeyup="searchDocument(this.value)">
+            </div>
+
+            <div class="doc-info">
+                <span id="doc-title" class="doc-label">School_Report.docx</span>
+                <span id="score-badge" class="stats-badge"><i class="fa-solid fa-star"></i> XP: 0</span>
+            </div>
+        </div>
+
+        <div class="menu-tabs">
+            <div class="tab-item active-tab" onclick="switchTab(this, 'homeTab')">Home</div>
+            <div class="tab-item" onclick="switchTab(this, 'insertTab')">Insert</div>
+            <div class="tab-item" style="opacity:0.5; cursor: not-allowed; pointer-events: none;">Layout</div>
+            <div class="tab-item" style="opacity: 0.5; cursor: not-allowed; pointer-events: none;">View</div>
+            <div class="tab-item" onclick="switchTab(this, 'helpTab')">Help</div>
+        </div>
+
+        <div class="task-banner">
+            <div class="task-content">
+                <img src="https://cdn-icons-png.flaticon.com/128/2098/2098402.png" alt="Wizard Hat"
+                    class="flaticon-banner-icon">
+                <div>
+                    <strong>Task:</strong> <span id="task-instruction">Loading level instructions...</span>
+                </div>
+            </div>
+            <button class="hint-btn" onclick="showHint()"><i class="fa-regular fa-lightbulb"></i> Hint</button>
+        </div>
+
+        <div class="ribbon-container">
+            <div id="homeTab" class="tab-ribbon active">
+                <div class="ribbon-group">
+                    <div class="button-row">
+                        <button class="ribbon-btn large-btn" title="Paste" onmousedown="event.preventDefault()"
+                            onclick="formatDoc('paste')">
+                            <i class="fa-solid fa-paste"></i>
+                        </button>
+                        <div style="display: flex; flex-direction: column; gap: 2px;">
+                            <button class="ribbon-btn" title="Cut" onmousedown="event.preventDefault()"
+                                onclick="formatDoc('cut')"><i class="fa-solid fa-scissors"></i></button>
+                            <button class="ribbon-btn" title="Copy" onmousedown="event.preventDefault()"
+                                onclick="formatDoc('copy')"><i class="fa-regular fa-copy"></i></button>
+                        </div>
+                    </div>
+                    <span class="group-label">Clipboard</span>
+                </div>
+
+                <div class="ribbon-divider"></div>
+
+                <div class="ribbon-group">
+                    <div class="button-row">
+                        <select class="ribbon-select" id="fontFamilySelect" onfocus="saveSelection()"
+                            onchange="formatDoc('fontName', this.value)">
+                            <option value="Calibri">Calibri</option>
+                            <option value="Arial">Arial</option>
+                            <option value="Comic Sans MS">Comic Sans MS</option>
+                            <option value="Courier New">Courier New</option>
+                            <option value="Georgia">Georgia</option>
+                            <option value="Impact">Impact</option>
+                            <option value="Times New Roman">Times New Roman</option>
+                            <option value="Trebuchet MS">Trebuchet MS</option>
+                            <option value="Verdana">Verdana</option>
+                        </select>
+
+                        <select class="ribbon-select" id="fontSizeSelect" onfocus="saveSelection()"
+                            onchange="formatDoc('fontSize', this.value)">
+                            <option value="1">8 pt</option>
+                            <option value="2">10 pt</option>
+                            <option value="3" selected>12 pt</option>
+                            <option value="4">14 pt</option>
+                            <option value="5">18 pt</option>
+                            <option value="6">24 pt</option>
+                            <option value="7">36 pt</option>
+                        </select>
+                    </div>
+
+                    <div class="button-row" style="margin-top: 4px;">
+                        <button class="ribbon-btn" title="Bold" onmousedown="event.preventDefault()"
+                            onclick="formatDoc('bold')"><i class="fa-solid fa-bold"></i></button>
+                        <button class="ribbon-btn" title="Italic" onmousedown="event.preventDefault()"
+                            onclick="formatDoc('italic')"><i class="fa-solid fa-italic"></i></button>
+                        <button class="ribbon-btn" title="Underline" onmousedown="event.preventDefault()"
+                            onclick="formatDoc('underline')"><i class="fa-solid fa-underline"></i></button>
+                        <button class="ribbon-btn" title="Strikethrough" onmousedown="event.preventDefault()"
+                            onclick="formatDoc('strikeThrough')"><i class="fa-solid fa-strikethrough"></i></button>
+
+                        <button class="ribbon-btn" title="Subscript" onmousedown="event.preventDefault()"
+                            onclick="formatDoc('subscript')"><i class="fa-solid fa-subscript"></i>
+                        </button>
+                        <button class="ribbon-btn" title="Superscript" onmousedown="event.preventDefault()"
+                            onclick="formatDoc('superscript')"><i class="fa-solid fa-superscript"></i>
+                        </button>
+
+                        <div class="custom-color-picker" id="highlightColorPickerWrapper">
+                            <button class="ribbon-btn color-picker-btn" title="Text Highlight Color"
+                                onmousedown="event.preventDefault()"
+                                onclick="toggleColorMenu('highlightColorMenu', event)">
+                                <span class="color-icon-stack">
+                                    <i class="fa-solid fa-highlighter"></i>
+                                    <span class="color-bar-indicator" id="highlightColorIndicator"
+                                        style="background-color: #ffff00;"></span>
+                                </span>
+                                <i class="fa-solid fa-caret-down drop-caret"></i>
+                            </button>
+
+                            <div class="color-menu-popup highlight-color-popup" id="highlightColorMenu">
+                                <div class="color-swatch-grid highlight-grid">
+                                    <button class="swatch" style="background-color: #ffff00;"
+                                        onmousedown="event.preventDefault()" onclick="applyHighlightColor('#ffff00')"
+                                        title="Yellow"></button>
+                                    <button class="swatch" style="background-color: #00ff00;"
+                                        onmousedown="event.preventDefault()" onclick="applyHighlightColor('#00ff00')"
+                                        title="Bright Green"></button>
+                                    <button class="swatch" style="background-color: #00ffff;"
+                                        onmousedown="event.preventDefault()" onclick="applyHighlightColor('#00ffff')"
+                                        title="Turquoise"></button>
+                                    <button class="swatch" style="background-color: #ff00ff;"
+                                        onmousedown="event.preventDefault()" onclick="applyHighlightColor('#ff00ff')"
+                                        title="Pink"></button>
+                                    <button class="swatch" style="background-color: #0000ff;"
+                                        onmousedown="event.preventDefault()" onclick="applyHighlightColor('#0000ff')"
+                                        title="Blue"></button>
+                                    <button class="swatch" style="background-color: #ff0000;"
+                                        onmousedown="event.preventDefault()" onclick="applyHighlightColor('#ff0000')"
+                                        title="Red"></button>
+                                    <button class="swatch" style="background-color: #000080;"
+                                        onmousedown="event.preventDefault()" onclick="applyHighlightColor('#000080')"
+                                        title="Dark Blue"></button>
+                                    <button class="swatch" style="background-color: #008080;"
+                                        onmousedown="event.preventDefault()" onclick="applyHighlightColor('#008080')"
+                                        title="Teal"></button>
+                                    <button class="swatch" style="background-color: #008000;"
+                                        onmousedown="event.preventDefault()" onclick="applyHighlightColor('#008000')"
+                                        title="Green"></button>
+                                    <button class="swatch" style="background-color: #800080;"
+                                        onmousedown="event.preventDefault()" onclick="applyHighlightColor('#800080')"
+                                        title="Violet"></button>
+                                    <button class="swatch" style="background-color: #800000;"
+                                        onmousedown="event.preventDefault()" onclick="applyHighlightColor('#800000')"
+                                        title="Dark Red"></button>
+                                    <button class="swatch" style="background-color: #808000;"
+                                        onmousedown="event.preventDefault()" onclick="applyHighlightColor('#808000')"
+                                        title="Dark Yellow"></button>
+                                    <button class="swatch" style="background-color: #808080;"
+                                        onmousedown="event.preventDefault()" onclick="applyHighlightColor('#808080')"
+                                        title="50% Gray"></button>
+                                    <button class="swatch" style="background-color: #c0c0c0;"
+                                        onmousedown="event.preventDefault()" onclick="applyHighlightColor('#c0c0c0')"
+                                        title="25% Gray"></button>
+                                    <button class="swatch" style="background-color: #000000;"
+                                        onmousedown="event.preventDefault()" onclick="applyHighlightColor('#000000')"
+                                        title="Black"></button>
+                                </div>
+                                <div class="color-menu-row" onmousedown="event.preventDefault()"
+                                    onclick="applyHighlightColor('transparent')">
+                                    <span class="no-color-box"><i class="fa-solid fa-ban"></i></span>
+                                    <span>No Color</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="custom-color-picker" id="fontColorPickerWrapper">
+                            <button class="ribbon-btn color-picker-btn" title="Font Color"
+                                onmousedown="event.preventDefault()" onclick="toggleColorMenu('fontColorMenu', event)">
+                                <span class="color-icon-stack">
+                                    <i class="fa-solid fa-font"></i>
+                                    <span class="color-bar-indicator" id="fontColorIndicator"
+                                        style="background-color: #000000;"></span>
+                                </span>
+                                <i class="fa-solid fa-caret-down drop-caret"></i>
+                            </button>
+
+                            <div class="color-menu-popup font-color-popup" id="fontColorMenu">
+                                <div class="color-menu-row" onmousedown="event.preventDefault()"
+                                    onclick="applyFontColor('#000000')">
+                                    <span class="color-swatch-box"
+                                        style="background-color: #000000; border: 1px solid #ccc;"></span>
+                                    <span>Automatic</span>
+                                </div>
+
+                                <div class="color-menu-section-title">Theme Colors</div>
+                                <div class="color-swatch-grid font-theme-grid">
+                                    <button class="swatch" style="background-color: #ffffff; border: 1px solid #ddd;"
+                                        onmousedown="event.preventDefault()" onclick="applyFontColor('#ffffff')"
+                                        title="White"></button>
+                                    <button class="swatch" style="background-color: #000000;"
+                                        onmousedown="event.preventDefault()" onclick="applyFontColor('#000000')"
+                                        title="Black"></button>
+                                    <button class="swatch" style="background-color: #e7e6e6;"
+                                        onmousedown="event.preventDefault()" onclick="applyFontColor('#e7e6e6')"
+                                        title="Light Gray"></button>
+                                    <button class="swatch" style="background-color: #44546a;"
+                                        onmousedown="event.preventDefault()" onclick="applyFontColor('#44546a')"
+                                        title="Blue Gray"></button>
+                                    <button class="swatch" style="background-color: #4472c4;"
+                                        onmousedown="event.preventDefault()" onclick="applyFontColor('#4472c4')"
+                                        title="Blue"></button>
+                                    <button class="swatch" style="background-color: #ed7d31;"
+                                        onmousedown="event.preventDefault()" onclick="applyFontColor('#ed7d31')"
+                                        title="Orange"></button>
+                                    <button class="swatch" style="background-color: #a5a5a5;"
+                                        onmousedown="event.preventDefault()" onclick="applyFontColor('#a5a5a5')"
+                                        title="Gray"></button>
+                                    <button class="swatch" style="background-color: #ffc000;"
+                                        onmousedown="event.preventDefault()" onclick="applyFontColor('#ffc000')"
+                                        title="Gold"></button>
+                                    <button class="swatch" style="background-color: #5b9bd5;"
+                                        onmousedown="event.preventDefault()" onclick="applyFontColor('#5b9bd5')"
+                                        title="Accent Blue"></button>
+                                    <button class="swatch" style="background-color: #70ad47;"
+                                        onmousedown="event.preventDefault()" onclick="applyFontColor('#70ad47')"
+                                        title="Green"></button>
+                                </div>
+
+                                <div class="color-menu-section-title">Standard Colors</div>
+                                <div class="color-swatch-grid font-standard-grid">
+                                    <button class="swatch" style="background-color: #c00000;"
+                                        onmousedown="event.preventDefault()" onclick="applyFontColor('#c00000')"
+                                        title="Dark Red"></button>
+                                    <button class="swatch" style="background-color: #ff0000;"
+                                        onmousedown="event.preventDefault()" onclick="applyFontColor('#ff0000')"
+                                        title="Red"></button>
+                                    <button class="swatch" style="background-color: #ffc000;"
+                                        onmousedown="event.preventDefault()" onclick="applyFontColor('#ffc000')"
+                                        title="Orange"></button>
+                                    <button class="swatch" style="background-color: #ffff00;"
+                                        onmousedown="event.preventDefault()" onclick="applyFontColor('#ffff00')"
+                                        title="Yellow"></button>
+                                    <button class="swatch" style="background-color: #92d050;"
+                                        onmousedown="event.preventDefault()" onclick="applyFontColor('#92d050')"
+                                        title="Light Green"></button>
+                                    <button class="swatch" style="background-color: #00b0f0;"
+                                        onmousedown="event.preventDefault()" onclick="applyFontColor('#00b0f0')"
+                                        title="Light Blue"></button>
+                                    <button class="swatch" style="background-color: #0070c0;"
+                                        onmousedown="event.preventDefault()" onclick="applyFontColor('#0070c0')"
+                                        title="Blue"></button>
+                                    <button class="swatch" style="background-color: #002060;"
+                                        onmousedown="event.preventDefault()" onclick="applyFontColor('#002060')"
+                                        title="Dark Blue"></button>
+                                    <button class="swatch" style="background-color: #7030a0;"
+                                        onmousedown="event.preventDefault()" onclick="applyFontColor('#7030a0')"
+                                        title="Purple"></button>
+                                    <button class="swatch" style="background-color: #a64d79;"
+                                        onmousedown="event.preventDefault()" onclick="applyFontColor('#a64d79')"
+                                        title="Magenta"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="group-label">Font</span>
+                </div>
+
+                <div class="ribbon-divider"></div>
+
+                <div class="ribbon-group">
+                    <div class="button-row">
+                        <button class="ribbon-btn" title="Align Left" onmousedown="event.preventDefault()"
+                            onclick="formatDoc('justifyLeft')"><i class="fa-solid fa-align-left"></i></button>
+                        <button class="ribbon-btn" title="Center" onmousedown="event.preventDefault()"
+                            onclick="formatDoc('justifyCenter')"><i class="fa-solid fa-align-center"></i></button>
+                        <button class="ribbon-btn" title="Align Right" onmousedown="event.preventDefault()"
+                            onclick="formatDoc('justifyRight')"><i class="fa-solid fa-align-right"></i></button>
+                        <button class="ribbon-btn" title="Justify" onmousedown="event.preventDefault()"
+                            onclick="formatDoc('justifyFull')"><i class="fa-solid fa-align-justify"></i></button>
+                    </div>
+
+                    <div class="button-row" style="margin-top: 4px;">
+                        <button class="ribbon-btn" title="Bullet List" onmousedown="event.preventDefault()"
+                            onclick="formatDoc('insertUnorderedList')"><i class="fa-solid fa-list-ul"></i></button>
+                        <button class="ribbon-btn" title="Numbered List" onmousedown="event.preventDefault()"
+                            onclick="formatDoc('insertOrderedList')"><i class="fa-solid fa-list-ol"></i></button>
+                        <button class="ribbon-btn" title="Decrease Indent" onmousedown="event.preventDefault()"
+                            onclick="formatDoc('outdent')"><i class="fa-solid fa-outdent"></i></button>
+                        <button class="ribbon-btn" title="Increase Indent" onmousedown="event.preventDefault()"
+                            onclick="formatDoc('indent')"><i class="fa-solid fa-indent"></i></button>
+                    </div>
+                    <span class="group-label">Paragraph</span>
+                </div>
+            </div>
+
+            <div id="insertTab" class="tab-ribbon" style="display: none;">
+                <div class="ribbon-group">
+                    <div class="button-row">
+                        <div style="display: flex; flex-direction: column; gap: 2px;">
+                            <button class="ribbon-btn" title="Cover Page" onmousedown="event.preventDefault()"><i class="fa-solid fa-file-invoice"></i> Cover Page</button>
+                            <button class="ribbon-btn" title="Blank Page" onmousedown="event.preventDefault()"><i class="fa-regular fa-file"></i> Blank Page</button>
+                            <button class="ribbon-btn" title="Page Break" onmousedown="event.preventDefault()" onclick="insertPageBreak()"><i class="fa-solid fa-file-lines"></i> Page Break</button>
+                        </div>
+                    </div>
+                    <span class="group-label">Pages</span>
+                </div>
+
+                <div class="ribbon-divider"></div>
+            
+                <div class="ribbon-group">
+                    <div class="button-row">
+                        <button class="ribbon-btn large-btn" title="Table" onmousedown="event.preventDefault()">
+                            <i class="fa-solid fa-table"></i>
+                            <span>Table <i class="fa-solid fa-chevron-down" style="font-size: 0.6rem;"></i></span>
+                        </button>
+                    </div>
+                    <span class="group-label">Tables</span>
+                </div>
+                <div class="ribbon-divider"></div>
+            
+                <div class="ribbon-group">
+                    <div class="button-row">
+                        <button class="ribbon-btn large-btn" title="Pictures" onmousedown="event.preventDefault()" onclick="insertPicture()">
+                            <i class="fa-regular fa-image"></i>
+                            <span>Pictures</span>
+                        </button>
+                        <button class="ribbon-btn large-btn" title="Shapes" onmousedown="event.preventDefault()" onclick="insertShape()">
+                            <i class="fa-solid fa-shapes"></i>
+                            <span>Shapes</span>
+                        </button>
+                        <button class="ribbon-btn large-btn" title="Icons" onmousedown="event.preventDefault()">
+                            <i class="fa-solid fa-icons"></i>
+                            <span>Icons</span>
+                        </button>
+                        <button class="ribbon-btn large-btn" title="Chart" onmousedown="event.preventDefault()">
+                            <i class="fa-solid fa-chart-pie"></i>
+                            <span>Chart</span>
+                        </button>
+                    </div>
+                    <span class="group-label">Illustrations</span>
+                </div>
+                <div class="ribbon-divider"></div>
+            
+                <div class="ribbon-group">
+                    <div class="button-row">
+                        <button class="ribbon-btn large-btn" title="Online Video" onmousedown="event.preventDefault()">
+                            <i class="fa-brands fa-youtube"></i>
+                            <span>Media</span>
+                        </button>
+                        <button class="ribbon-btn large-btn" title="Link" onmousedown="event.preventDefault()" onclick="insertLink()">
+                            <i class="fa-solid fa-link"></i>
+                            <span>Link</span>
+                        </button>
+                    </div>
+                    <span class="group-label">Media & Links</span>
+                </div>
+                <div class="ribbon-divider"></div>
+            
+                <div class="ribbon-group">
+                    <div class="button-row">
+                        <div style="display: flex; flex-direction: column; gap: 2px;">
+                            <button class="ribbon-btn" title="Header" onmousedown="event.preventDefault()"><i class="fa-solid fa-heading"></i> Header</button>
+                            <button class="ribbon-btn" title="Footer" onmousedown="event.preventDefault()"><i class="fa-solid fa-shoe-prints"></i> Footer</button>
+                            <button class="ribbon-btn" title="Page Number" onmousedown="event.preventDefault()"><i class="fa-solid fa-list-ol"></i> Page Num</button>
+                        </div>
+                    </div>
+                    <span class="group-label">Header & Footer</span>
+                </div>
+                <div class="ribbon-divider"></div>
+            
+                <div class="ribbon-group">
+                    <div class="button-row">
+                        <button class="ribbon-btn large-btn" title="Text Box" onmousedown="event.preventDefault()">
+                            <i class="fa-regular fa-square-plus"></i>
+                            <span>Text Box</span>
+                        </button>
+                        <button class="ribbon-btn large-btn" title="WordArt" onmousedown="event.preventDefault()">
+                            <i class="fa-solid fa-font"></i>
+                            <span>WordArt</span>
+                        </button>
+                    </div>
+                    <span class="group-label">Text</span>
+                </div>
+                <div class="ribbon-divider"></div>
+            
+                <div class="ribbon-group">
+                    <div class="button-row">
+                        <button class="ribbon-btn large-btn" title="Equation" onmousedown="event.preventDefault()">
+                            <i class="fa-solid fa-calculator"></i>
+                            <span>Equation</span>
+                        </button>
+                        <button class="ribbon-btn large-btn" title="Symbol" onmousedown="event.preventDefault()">
+                            <i class="fa-solid fa-omega"></i>
+                            <span>Symbol</span>
+                        </button>
+                    </div>
+                    <span class="group-label">Symbols</span>
+                </div>
+            </div>
+
+            <div id="layoutTab" class="tab-ribbon" style="display: none;">
+                <div class="ribbon-group">
+                    <div class="button-row">
+                        <button class="ribbon-btn" onmousedown="event.preventDefault()"
+                            onclick="changeMargins('normal')"><i class="fa-solid fa-border-all"></i> Normal
+                            Margins</button>
+                        <button class="ribbon-btn" onmousedown="event.preventDefault()"
+                            onclick="changeMargins('narrow')"><i class="fa-solid fa-border-none"></i> Narrow
+                            Margins</button>
+                    </div>
+                    <span class="group-label">Page Setup</span>
+                </div>
+            </div>
+
+            <div id="viewTab" class="tab-ribbon" style="display: none;">
+                <div class="ribbon-group">
+                    <div class="button-row">
+                        <label class="ribbon-checkbox"><input type="checkbox" id="rulerToggle" checked
+                                onchange="toggleRuler(this.checked)"> Ruler</label>
+                    </div>
+                    <span class="group-label">Show</span>
+                </div>
+            </div>
+
+            <div id="helpTab" class="tab-ribbon" style="display: none;">
+                <div class="ribbon-group">
+                    <div class="button-row">
+                        <button class="ribbon-btn" onclick="showHint()"><i class="fa-regular fa-question-circle"></i>
+                            Show Task Hint</button>
+                    </div>
+                    <span class="group-label">Help</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-container" id="pageContainer">
+            <div id="editor" class="editor" contenteditable="true" spellcheck="false" oninput="updateWordCount()"
+                onkeyup="saveSelection()" onmouseup="saveSelection()"></div>
+        </div>
+
+        <div class="status-bar">
+            <div class="status-left">
+                <span>Page 1 of 1</span>
+                <span id="word-count">0 words</span>
+                <span><i class="fa-solid fa-universal-access"></i> Accessibility: Good to go</span>
+            </div>
+            <div class="status-right">
+                <span onclick="toggleFocusMode()" style="cursor:pointer;"><i class="fa-solid fa-eye"></i> Focus</span>
+                <i class="fa-regular fa-file-lines"></i>
+                <i class="fa-solid fa-book-open"></i>
+                <div class="zoom-container">
+                    <i class="fa-solid fa-minus zoom-btn" onclick="adjustZoom(-10)" title="Zoom Out"></i>
+                    <input type="range" id="zoomRange" min="50" max="150" value="100" class="zoom-slider"
+                        oninput="changeZoom(this.value)">
+                    <i class="fa-solid fa-plus zoom-btn" onclick="adjustZoom(10)" title="Zoom In"></i>
+                    <span id="zoomVal">100%</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-controls">
+            <div id="status-message" class="status-message"></div>
+            <button class="submit-btn" onclick="checkAnswer()">Check Formatting <i
+                    class="fa-solid fa-arrow-right"></i></button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

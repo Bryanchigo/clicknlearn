@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Guardian | TechQuest</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="game-container">
+        <header id="hud">
+            <div class="stat-box">
+                <span class="stat-label">Neutralized</span>
+                <span id="score-val">0</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">Security Shield</span>
+                <div class="shield-bar"><div id="shield-fill"></div></div>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">Streak</span>
+                <span id="streak-val">0x</span>
+            </div>
+        </header>
+
+        <main id="os-area">
+            <div id="case-card">
+                <div class="case-header">
+                    <span id="case-badge" class="badge">📧 EMAIL SCAN</span>
+                    <span id="case-id" class="case-num">CASE #01</span>
+                </div>
+                <div id="case-meta" class="meta-box">
+                    <div id="meta-sender"><strong>From:</strong> support@netfl1x-billing.com</div>
+                    <div id="meta-subject"><strong>Subject:</strong> URGENT: Payment Failed!</div>
+                </div>
+                <div id="case-body" class="body-box">
+                    <p id="case-text">Your subscription has been suspended due to a declined credit card. Click the link below immediately to update your billing details or your account will be permanently deleted.</p>
+                    <div id="case-link" class="link-preview">🌐 http://netfl1x-billing-update.com/login</div>
+                </div>
+            </div>
+
+            <div id="action-panel">
+                <button id="btn-allow" class="btn-action safe" onclick="makeDecision(true)">
+                    <span class="btn-icon">✅</span>
+                    <span class="btn-text">ALLOW / SAFE<small>Legitimate Digital Activity</small></span>
+                </button>
+                <button id="btn-block" class="btn-action danger" onclick="makeDecision(false)">
+                    <span class="btn-icon">🚨</span>
+                    <span class="btn-text">BLOCK & REPORT<small>Phishing, Scam, or Risk</small></span>
+                </button>
+            </div>
+
+            <div id="feedback-modal" class="screen hidden">
+                <div class="feedback-card">
+                    <div id="feedback-icon">🛡️</div>
+                    <h2 id="feedback-title">THREAT INTERCEPTED!</h2>
+                    <div id="feedback-tag" class="tag-correct">+10 POINTS</div>
+                    <p id="feedback-desc">Good eye! This email used a spoofed domain (netfl1x with a '1') and created false urgency to trick you into entering financial information.</p>
+                    <button id="btn-next" onclick="nextCase()">Next Case ➔</button>
+                </div>
+            </div>
+
+            <div id="start-screen" class="screen">
+                <h1 class="title">🛡️ CYBER GUARDIAN</h1>
+                <p>Protect the network! Analyze incoming emails, links, passwords, and privacy situations. Spot the digital threats before they breach your system.</p>
+                
+                <div class="mode-selector">
+                    <label class="active">
+                        <input type="radio" name="difficulty" value="standard" checked>
+                        <span>Standard Patrol (100% Shield)</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="difficulty" value="hardcore">
+                        <span>Zero Tolerance (One Mistake = Game Over)</span>
+                    </label>
+                </div>
+
+                <button id="start-btn">Start Patrol 🚀</button>
+                <a href="../../index.html" class="back-link">← Back to Arcade</a>
+            </div>
+
+            <div id="end-screen" class="screen hidden">
+                <h1 id="end-title" class="title" style="color: var(--error-red);">SYSTEM BREACHED</h1>
+                <p id="end-reason">Too many cyber threats slipped past your defenses! Here is your shift report:</p>
+                
+                <div class="final-stats">
+                    <div class="stat-box">
+                        <span class="stat-label">Threats Neutralized</span>
+                        <span id="final-score">0</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Max Defense Streak</span>
+                        <span id="final-streak">0x</span>
+                    </div>
+                </div>
+
+                <button id="restart-btn">Try Again ↻</button>
+                <a href="../../index.html" class="back-link">← Back to Arcade</a>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

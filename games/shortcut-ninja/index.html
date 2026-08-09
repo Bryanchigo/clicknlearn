@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shortcut Ninja | Master Keyboard Shortcuts</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Orbitron:wght@600;800;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="ninja-app">
+        <header class="title-bar">
+            <div class="brand">
+                <i class="fa-solid fa-user-ninja brand-icon"></i>
+                <span class="brand-title">SHORTCUT NINJA</span>
+                <span class="edition-badge">PRO EDITION</span>
+            </div>
+
+            <div class="header-controls">
+                <button id="osToggleBtn" class="os-toggle-btn" onclick="toggleOS()" title="Switch Operating System Shortcuts">
+                    <i class="fa-brands fa-windows" id="osIcon"></i>
+                    <span id="osLabel">Windows (Ctrl)</span>
+                </button>
+
+                <button class="icon-btn" onclick="toggleMute()" title="Toggle Sound FX">
+                    <i id="soundIcon" class="fa-solid fa-volume-high"></i>
+                </button>
+
+                <div class="badge xp-badge" id="xpBadge"><i class="fa-solid fa-star"></i> XP: 0</div>
+                <div class="badge rank-badge" id="rankBadge"><i class="fa-solid fa-user-ninja"></i> Rank: White Belt</div>
+                <div class="badge combo-badge" id="comboBadge"><i class="fa-solid fa-bolt"></i> 1x COMBO</div>
+            </div>
+        </header>
+
+        <section class="task-banner">
+            <div class="task-meta">
+                <div class="level-indicator" id="levelIndicator">Mission 1 of 12</div>
+                <div class="doc-title" id="docTitle"><i class="fa-solid fa-scroll"></i> Secret_Scroll.txt</div>
+            </div>
+
+            <div class="task-content">
+                <h2 id="taskTitle" class="task-title">Mission 1: The Copy Scroll</h2>
+                <p id="taskDesc" class="task-desc">Select the text below and press <strong>Ctrl + C</strong> to copy it.</p>
+            </div>
+
+            <div class="timer-wrapper">
+                <div class="timer-header">
+                    <span><i class="fa-solid fa-stopwatch"></i> Speedrun Timer</span>
+                    <span id="timerText" class="timer-text">30.0s</span>
+                </div>
+                <div class="timer-bar-container">
+                    <div id="timerBar" class="timer-bar"></div>
+                </div>
+            </div>
+
+            <div id="bossStepper" class="boss-stepper" style="display: none;">
+                <div class="boss-title"><i class="fa-solid fa-skull"></i> BOSS COMBO CHAIN</div>
+                <div class="steps-container" id="bossStepsContainer">
+                    </div>
+            </div>
+        </section>
+
+        <main class="editor-wrapper">
+            <div class="combo-floater" id="comboFloater">COMBO x2!</div>
+            <div id="editor" class="scroll-editor" contenteditable="true" spellcheck="false"></div>
+        </main>
+
+        <div id="commandPaletteModal" class="modal-overlay" style="display: none;">
+            <div class="modal-card">
+                <div class="modal-header">
+                    <i class="fa-solid fa-terminal"></i> Ninja Command Palette
+                    <span class="close-modal" onclick="closeCommandPalette()">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <input type="text" id="commandInput" class="command-input" placeholder="Type command or paste scroll code..." onkeyup="handleCommandKey(event)">
+                    <button class="command-btn" onclick="executeCommandPalette()">Execute (Enter)</button>
+                </div>
+                <div class="modal-footer" id="commandFeedback">Ready for input...</div>
+            </div>
+        </div>
+
+        <section class="keyboard-section">
+            <div class="keyboard-header">
+                <span><i class="fa-solid fa-keyboard"></i> INTERACTIVE NINJA KEYBOARD</span>
+                <span class="active-keys-label">Key Combo: <span id="comboDisplay" class="combo-display"><span class="key-cap placeholder-key">Press keys...</span></span></span>
+            </div>
+
+            <div class="virtual-keyboard" id="virtualKeyboard">
+                <div class="kb-row">
+                    <div class="key" id="key-Escape">Esc</div>
+                    <div class="key" id="key-Digit1">1</div>
+                    <div class="key" id="key-Digit2">2</div>
+                    <div class="key" id="key-Digit3">3</div>
+                    <div class="key" id="key-Digit4">4</div>
+                    <div class="key" id="key-Digit5">5</div>
+                    <div class="key" id="key-Digit6">6</div>
+                    <div class="key" id="key-Digit7">7</div>
+                    <div class="key" id="key-Digit8">8</div>
+                    <div class="key" id="key-Digit9">9</div>
+                    <div class="key" id="key-Digit0">0</div>
+                    <div class="key" id="key-Minus">-</div>
+                    <div class="key" id="key-Equal">=</div>
+                    <div class="key key-backspace" id="key-Backspace"><i class="fa-solid fa-backspace"></i></div>
+                </div>
+                <div class="kb-row">
+                    <div class="key key-tab" id="key-Tab">Tab</div>
+                    <div class="key" id="key-KeyQ">Q</div>
+                    <div class="key" id="key-KeyW">W</div>
+                    <div class="key" id="key-KeyE">E</div>
+                    <div class="key" id="key-KeyR">R</div>
+                    <div class="key" id="key-KeyT">T</div>
+                    <div class="key" id="key-KeyY">Y</div>
+                    <div class="key" id="key-KeyU">U</div>
+                    <div class="key" id="key-KeyI">I</div>
+                    <div class="key" id="key-KeyO">O</div>
+                    <div class="key" id="key-KeyP">P</div>
+                    <div class="key" id="key-BracketLeft">[</div>
+                    <div class="key" id="key-BracketRight">]</div>
+                    <div class="key key-slash" id="key-Backslash">\</div>
+                </div>
+                <div class="kb-row">
+                    <div class="key key-caps" id="key-CapsLock">Caps</div>
+                    <div class="key" id="key-KeyA">A</div>
+                    <div class="key" id="key-KeyS">S</div>
+                    <div class="key" id="key-KeyD">D</div>
+                    <div class="key" id="key-KeyF">F</div>
+                    <div class="key" id="key-KeyG">G</div>
+                    <div class="key" id="key-KeyH">H</div>
+                    <div class="key" id="key-KeyJ">J</div>
+                    <div class="key" id="key-KeyK">K</div>
+                    <div class="key" id="key-KeyL">L</div>
+                    <div class="key" id="key-Semicolon">;</div>
+                    <div class="key" id="key-Quote">'</div>
+                    <div class="key key-enter" id="key-Enter">Enter <i class="fa-solid fa-level-down-alt fa-rotate-90"></i></div>
+                </div>
+                <div class="kb-row">
+                    <div class="key key-shift-left" id="key-ShiftLeft">Shift</div>
+                    <div class="key" id="key-KeyZ">Z</div>
+                    <div class="key" id="key-KeyX">X</div>
+                    <div class="key" id="key-KeyC">C</div>
+                    <div class="key" id="key-KeyV">V</div>
+                    <div class="key" id="key-KeyB">B</div>
+                    <div class="key" id="key-KeyN">N</div>
+                    <div class="key" id="key-KeyM">M</div>
+                    <div class="key" id="key-Comma">,</div>
+                    <div class="key" id="key-Period">.</div>
+                    <div class="key" id="key-Slash">/</div>
+                    <div class="key key-shift-right" id="key-ShiftRight">Shift</div>
+                </div>
+                <div class="kb-row">
+                    <div class="key key-mod" id="key-ModifierLeft">Ctrl</div>
+                    <div class="key key-alt" id="key-AltLeft">Alt</div>
+                    <div class="key key-space" id="key-Space">Space</div>
+                    <div class="key key-alt" id="key-AltRight">Alt</div>
+                    <div class="key key-mod" id="key-ModifierRight">Ctrl</div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer-bar">
+            <div id="statusMessage" class="status-message info">
+                <i class="fa-solid fa-circle-info"></i> Perform the requested shortcut to execute your ninja move.
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-hint" onclick="showHint()"><i class="fa-solid fa-lightbulb"></i> Hint</button>
+                <button class="btn btn-secondary" onclick="resetCurrentLevel()"><i class="fa-solid fa-rotate-right"></i> Reset</button>
+                <button class="btn btn-nav" onclick="prevLevel()"><i class="fa-solid fa-arrow-left"></i> Prev</button>
+                <button class="btn btn-primary" onclick="checkAnswer()">Verify Technique <i class="fa-solid fa-shield-halved"></i></button>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

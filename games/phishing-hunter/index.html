@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phishing Hunter | ClicknLearn</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="game-container">
+        <header id="hud">
+            <div class="stat-box">
+                <span class="stat-label">Scams Uncovered</span>
+                <span id="score-val">0</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">Detective Rank</span>
+                <span id="rank-val">Rookie Hunter</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">Trust Gauge</span>
+                <div class="gauge-bar"><div id="gauge-fill"></div></div>
+            </div>
+        </header>
+
+        <main id="investigation-area">
+            <div id="case-card">
+                <div class="case-header">
+                    <span id="case-category" class="badge">🌐 WEBSITE INSPECTION</span>
+                    <span id="case-id" class="case-num">CASE #01</span>
+                </div>
+
+                <div id="browser-bar">
+                    <span id="ssl-icon" class="ssl-badge">🔒 HTTPS</span>
+                    <div id="url-address">https://www.paypaI-security-update.com/login</div>
+                </div>
+
+                <div id="evidence-body">
+                    <div id="evidence-header-info">
+                        <div><strong>Sender / Host:</strong> <span id="sender-display">security@paypaI-security-update.com</span></div>
+                        <div><strong>Subject / Title:</strong> <span id="title-display">Action Required: Verify Account Access</span></div>
+                    </div>
+                    <div id="evidence-content">
+                        <p id="evidence-text">Your PayPal account was accessed from an unrecognized device in Tokyo, Japan. If this was not you, click the button below to secure your credentials immediately.</p>
+                        <div id="cta-box" class="cta-button">VERIFY MY ACCOUNT NOW ➔</div>
+                    </div>
+                </div>
+
+                <div class="inspection-hints">
+                    <span class="hint-title">🔎 Evidence Clues to Inspect:</span>
+                    <div class="clue-tags">
+                        <span id="clue-domain" class="clue-tag">Domain Spelling</span>
+                        <span id="clue-ssl" class="clue-tag">SSL Encryption</span>
+                        <span id="clue-urgency" class="clue-tag">False Urgency</span>
+                        <span id="clue-sender" class="clue-tag">Sender Address</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="verdict-panel">
+                <button class="btn-verdict safe" onclick="makeVerdict(true)">
+                    <span class="btn-icon">✅</span>
+                    <span class="btn-text">LEGITIMATE<small>Verified Safe Source</small></span>
+                </button>
+                <button class="btn-verdict danger" onclick="makeVerdict(false)">
+                    <span class="btn-icon">🚨</span>
+                    <span class="btn-text">PHISHING SCAM<small>Fake Domain / Threat</small></span>
+                </button>
+            </div>
+
+            <div id="feedback-modal" class="screen hidden">
+                <div class="feedback-card">
+                    <div id="feedback-icon">🔍</div>
+                    <h2 id="feedback-title">SCAM DETECTED!</h2>
+                    <div id="feedback-tag" class="tag-correct">+10 DETECTIVE POINTS</div>
+                    <p id="feedback-desc">Great job! The URL used a capital 'I' instead of an 'l' in "paypaI-security-update.com". Official services always use their primary domain name!</p>
+                    <button id="btn-next" onclick="nextCase()">Inspect Next Case ➔</button>
+                </div>
+            </div>
+
+            <div id="start-screen" class="screen">
+                <h1 class="title">🎣 PHISHING HUNTER</h1>
+                <p>Scammers use spoofed links, fake browser windows, and deceptive addresses to trick users. Put on your detective badge and inspect URLs, SSL locks, and domains to catch scams red-handed!</p>
+                
+                <div class="mode-selector">
+                    <label class="active">
+                        <input type="radio" name="difficulty" value="rookie" checked>
+                        <span>Standard Patrol (3 Mistakes Allowed)</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="difficulty" value="detective">
+                        <span>Master Sleuth (1 Mistake = Game Over)</span>
+                    </label>
+                </div>
+
+                <button id="start-btn">Start Investigation 🔍</button>
+                <a href="../../index.html" class="back-link">← Back to Arcade</a>
+            </div>
+
+            <div id="end-screen" class="screen hidden">
+                <h1 id="end-title" class="title" style="color: var(--error-red);">INVESTIGATION CLOSED</h1>
+                <p id="end-reason">Too many phishing scams slipped past your inspection! Here is your shift report:</p>
+                
+                <div class="final-stats">
+                    <div class="stat-box">
+                        <span class="stat-label">Scams Uncovered</span>
+                        <span id="final-score">0</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Final Rank</span>
+                        <span id="final-rank">Rookie Hunter</span>
+                    </div>
+                </div>
+
+                <button id="restart-btn">New Investigation ↻</button>
+                <a href="../../index.html" class="back-link">← Back to Arcade</a>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

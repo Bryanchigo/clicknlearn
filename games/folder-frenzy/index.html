@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Folder Frenzy | ClicknLearn</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="game-container">
+        <header id="hud">
+            <div class="stat-box">
+                <span class="stat-label">Sorted</span>
+                <span id="score-val">0</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">Combo</span>
+                <span id="combo-val" class="combo-badge">1x</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">Time Left</span>
+                <span id="time-val">45s</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">Clutter Level</span>
+                <div class="clutter-bar"><div id="clutter-fill"></div></div>
+            </div>
+        </header>
+
+        <main id="desktop">
+            <div id="folder-zone">
+                <div class="folder" data-type="doc">
+                    <span class="folder-icon">📁</span>
+                    <span class="folder-name">Documents</span>
+                    <span class="folder-ext">.docx, .pdf, .txt</span>
+                </div>
+                <div class="folder" data-type="img">
+                    <span class="folder-icon">📁</span>
+                    <span class="folder-name">Images & Video</span>
+                    <span class="folder-ext">.png, .jpg, .mp4</span>
+                </div>
+                <div class="folder" data-type="audio">
+                    <span class="folder-icon">📁</span>
+                    <span class="folder-name">Music & Audio</span>
+                    <span class="folder-ext">.mp3, .wav</span>
+                </div>
+                <div class="folder" data-type="app">
+                    <span class="folder-icon">📁</span>
+                    <span class="folder-name">Applications</span>
+                    <span class="folder-ext">.exe, .zip</span>
+                </div>
+                <div class="folder trash-folder" data-type="virus">
+                    <span class="folder-icon">🗑️</span>
+                    <span class="folder-name">Recycle Bin</span>
+                    <span class="folder-ext">Virus & Threats 🦠</span>
+                </div>
+            </div>
+
+            <div id="file-zone"></div>
+
+            <div id="start-screen" class="screen">
+                <h1 class="title">📁 FOLDER FRENZY</h1>
+                <p>Your desktop is overflowing! Sort incoming files quickly and isolate threats!</p>
+                
+                <div class="high-score-tag">
+                    BEST RECORD: <strong id="start-high-score">0</strong>
+                </div>
+
+                <div class="mode-selector">
+                    <label class="active">
+                        <input type="radio" name="difficulty" value="easy" checked>
+                        <span>Intern (45s, Slow Spawns)</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="difficulty" value="hard">
+                        <span>IT Pro (30s, Fast Spawns)</span>
+                    </label>
+                </div>
+
+                <div class="btn-group">
+                    <button id="start-btn">Clean Desktop 🧹</button>
+                    <button id="help-btn" class="secondary-btn">How to Play ❓</button>
+                </div>
+
+                <a href="../../index.html" class="back-link">← Back to Arcade</a>
+            </div>
+
+            <div id="help-modal" class="screen hidden">
+                <div class="modal-card">
+                    <h2>HOW TO PLAY</h2>
+                    <div class="instructions-grid">
+                        <div class="instruction-item">
+                            <span class="ins-icon">📁</span>
+                            <div><strong>Drag & Drop:</strong> Match standard files (.docx, .png, .mp3, .exe) into their matching folder categories.</div>
+                        </div>
+                        <div class="instruction-item">
+                            <span class="ins-icon">🦠</span>
+                            <div><strong>Viruses:</strong> Drag red virus threats directly into the <strong>Recycle Bin</strong>! Normal folders deduct -5s!</div>
+                        </div>
+                        <div class="instruction-item">
+                            <span class="ins-icon">⭐</span>
+                            <div><strong>VIP Files:</strong> VIP files are application files. Sorting ⭐ VIP files awards double points & combo boosts!</div>
+                        </div>
+                        <div class="instruction-item">
+                            <span class="ins-icon">🧹</span>
+                            <div><strong>Disk Cleaners:</strong> Sort 🧹 cleaners to clear 2 extra cluttered files off your desktop!</div>
+                        </div>
+                        <div class="instruction-item full-width">
+                            <span class="ins-icon">🔥</span>
+                            <div><strong>Combo Multiplier:</strong> Build a streak of accurate sorts to reach up to <strong>5x Score Boosts</strong>!</div>
+                        </div>
+                    </div>
+                    <button id="close-help-btn">Got It!</button>
+                </div>
+            </div>
+
+            <div id="end-screen" class="screen hidden">
+                <h1 id="end-title" class="title">DESKTOP CLEANED!</h1>
+                <p id="end-reason">Here is your file organization report:</p>
+                
+                <div class="final-stats">
+                    <div class="stat-box">
+                        <span class="stat-label">Files Organized</span>
+                        <span id="final-score">0</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Best Record</span>
+                        <span id="final-best">0</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Accuracy</span>
+                        <span id="final-accuracy">100%</span>
+                    </div>
+                </div>
+
+                <button id="restart-btn">Play Again ↻</button>
+                <a href="../../index.html" class="back-link">← Back to Arcade</a>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

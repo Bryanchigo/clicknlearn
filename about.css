@@ -1,0 +1,137 @@
+/* --- ABOUT PAGE SPECIFIC STYLES --- */
+.about-hero {
+    text-align: center;
+    padding: 5rem 10% 3rem;
+    background: linear-gradient(135deg, #07090e 0%, #162032 100%);
+    color: #ffffff;
+}
+
+.about-hero h1 {
+    font-size: 3.2rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, #00ff88, #00d4ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.about-hero p {
+    font-size: 1.25rem;
+    color: #94a3b8;
+    max-width: 750px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+.why-tech-section {
+    padding: 5rem 8%;
+    background: #ffffff;
+}
+
+.why-tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.why-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 2.2rem;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+}
+
+.why-card:hover {
+    transform: translateY(-6px);
+    border-color: #4361ee;
+    box-shadow: 0 12px 30px rgba(67, 97, 238, 0.1);
+}
+
+.why-card .icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.why-card h3 {
+    font-size: 1.4rem;
+    color: #0f172a;
+    margin-bottom: 0.8rem;
+}
+
+.why-card p {
+    color: #64748b;
+    font-size: 0.98rem;
+    line-height: 1.6;
+}
+
+.stats-banner {
+    background: #0f172a;
+    color: white;
+    padding: 4rem 8%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    text-align: center;
+}
+
+.stat-item h2 {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #00ff88;
+    margin-bottom: 0.3rem;
+}
+
+.stat-item p {
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.mission-section {
+    padding: 5rem 8%;
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    background: #f1f5f9;
+}
+
+.mission-text {
+    flex: 1;
+}
+
+.mission-text h2 {
+    font-size: 2.5rem;
+    color: #0f172a;
+    margin-bottom: 1.2rem;
+}
+
+.mission-text p {
+    color: #475569;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+
+.mission-img {
+    flex: 1;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.mission-img img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+@media (max-width: 868px) {
+    .mission-section {
+        flex-direction: column;
+        padding: 3rem 5%;
+    }
+}

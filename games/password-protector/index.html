@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Protector | TechQuest</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="game-container">
+        <header id="hud">
+            <div class="stat-box">
+                <span class="stat-label">Bots Neutralized</span>
+                <span id="score-val">0</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">Vault Integrity</span>
+                <div class="vault-bar"><div id="vault-fill"></div></div>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">Defense Level</span>
+                <span id="level-val">1</span>
+            </div>
+        </header>
+
+        <main id="console-area">
+            <section id="radar-screen">
+                <div class="laser-cannon" id="laser-cannon">⚡</div>
+                <div class="vault-core">🔒 VAULT CORE</div>
+                <div id="threat-zone"></div>
+            </section>
+
+            <section id="workbench">
+                <div class="challenge-box">
+                    <span id="threat-label" class="threat-tag">⚠️ INCOMING BRUTE-FORCE BOT</span>
+                    <h3 id="target-prompt">Strengthen this password to defeat the bot!</h3>
+                    
+                    <div class="input-wrapper">
+                        <input type="text" id="password-input" placeholder="Type or upgrade password here..." autocomplete="off">
+                        <button id="zap-btn" onclick="fireLaser()">ZAP THREAT ⚡</button>
+                    </div>
+
+                    <div class="checklist">
+                        <span class="check-item" id="chk-len">❌ 8+ Chars</span>
+                        <span class="check-item" id="chk-upper">❌ Upper & Lower</span>
+                        <span class="check-item" id="chk-num">❌ Number (0-9)</span>
+                        <span class="check-item" id="chk-sym">❌ Symbol (!@#$)</span>
+                    </div>
+                </div>
+            </section>
+
+            <div id="start-screen" class="screen">
+                <h1 class="title">🔐 PASSWORD PROTECTOR</h1>
+                <p>Brute-force hacker bots are trying to crack the main vault! Upgrade weak passwords with strong security criteria to power up the laser and zap incoming threats.</p>
+                
+                <div class="mode-selector">
+                    <label class="active">
+                        <input type="radio" name="difficulty" value="cadet" checked>
+                        <span>Security Cadet (Slow Threat Speed)</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="difficulty" value="commander">
+                        <span>Vault Commander (Fast Bot Attacks)</span>
+                    </label>
+                </div>
+
+                <button id="start-btn">Activate Defenses 🛡️</button>
+                <a href="../../index.html" class="back-link">← Back to Arcade</a>
+            </div>
+
+            <div id="end-screen" class="screen hidden">
+                <h1 id="end-title" class="title" style="color: var(--error-red);">VAULT BREACHED!</h1>
+                <p id="end-reason">The hacker bots cracked through your defenses! Here is your security log:</p>
+                
+                <div class="final-stats">
+                    <div class="stat-box">
+                        <span class="stat-label">Threats Destroyed</span>
+                        <span id="final-score">0</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Wave Survived</span>
+                        <span id="final-wave">1</span>
+                    </div>
+                </div>
+
+                <button id="restart-btn">Reboot System ↻</button>
+                <a href="../../index.html" class="back-link">← Back to Arcade</a>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
